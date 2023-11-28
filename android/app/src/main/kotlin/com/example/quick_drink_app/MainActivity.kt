@@ -1,4 +1,4 @@
-package com.example.quick_drink_app
+package com.boguszbrzoska.quick_drink_app
 
 import io.flutter.embedding.android.FlutterActivity
 

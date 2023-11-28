@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "350658212835",
+    "project_id": "rankingjulkow",
+    "storage_bucket": "rankingjulkow.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350658212835:android:f223518f727946463c66d6",
+        "android_client_info": {
+          "package_name": "com.boguszbrzoska.rankingjulkow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350658212835-nos7ats2rhbmmgqa6pk3kjulrbaok2pg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcMJni05iBwY6qyXM9Q3Ro8gpOIEo4rSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350658212835-nos7ats2rhbmmgqa6pk3kjulrbaok2pg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "350658212835-hs7j6dbqmj2h7gmepcq2epef5o5c9h24.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.boguszbrzoska.rankingjulkow"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350658212835:android:765d61e055cb177a3c66d6",
+        "android_client_info": {
+          "package_name": "com.example.quick_drink_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350658212835-nos7ats2rhbmmgqa6pk3kjulrbaok2pg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcMJni05iBwY6qyXM9Q3Ro8gpOIEo4rSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350658212835-nos7ats2rhbmmgqa6pk3kjulrbaok2pg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "350658212835-hs7j6dbqmj2h7gmepcq2epef5o5c9h24.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.boguszbrzoska.rankingjulkow"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
