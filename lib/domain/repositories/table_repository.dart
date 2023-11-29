@@ -7,7 +7,7 @@ class TableRepository {
   final TableRemoteDataSource tableRemoteDataSource;
 
   Stream<List<TableModel>> getTablesData(
-      {required int tableNumber, required int guestsQuantity}) {
+      ) {
     return tableRemoteDataSource.getTableData().map((querySnapshot) {
       return querySnapshot.docs.map((doc) {
         return TableModel(

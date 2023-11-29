@@ -18,12 +18,13 @@ class TablePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TablesPageCubit(
-          tableRepository:
-              TableRepository(tableRemoteDataSource: TableRemoteDataSource())),
-      child: BlocBuilder<TablesPageCubit, TablesPageState>(
-        builder: (context, state) {
-          return Scaffold(
+        create: (context) => TablesPageCubit(
+            tableRepository:
+                TableRepository(tableRemoteDataSource: TableRemoteDataSource()))
+          ..getTables(),
+        child: BlocBuilder<TablesPageCubit, TablesPageState>(
+          builder: (context, state) {
+            return Scaffold(
               appBar: AppBar(
                 title: Text("Tables Page",
                     style: Theme.of(context).textTheme.headlineLarge),
@@ -115,39 +116,55 @@ class TablePage extends StatelessWidget {
                         children: [
                           Column(
                             children: [
-                              Material(
-                                shape: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                clipBehavior: Clip.hardEdge,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => MenuPage(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 2,
-                                          color: Colors.black,
+                              for (final table in state.tables) ...[
+                                Material(
+                                  shape: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  clipBehavior: Clip.hardEdge,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => MenuPage(),
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(100)),
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    height:
-                                        MediaQuery.of(context).size.height / 4,
-                                    child: Text("1",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayLarge),
+                                      );
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 2,
+                                            color: Colors.black,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(100)),
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              4,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("${table.tableNumber}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium),
+                                          Text("${table.guestsQuantity}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              )
+                                SizedBox(
+                                  height: 15,
+                                ),
+                              ]
                             ],
                           )
                         ],
@@ -155,9 +172,9 @@ class TablePage extends StatelessWidget {
                     ),
                   )
                 ],
-              ));
-        },
-      ),
-    );
+              ),
+            );
+          },
+        ));
   }
 }
