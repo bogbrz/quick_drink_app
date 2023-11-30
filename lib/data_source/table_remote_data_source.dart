@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TableRemoteDataSource {
   Stream<QuerySnapshot<Map<String, dynamic>>> getTableData() {
-    return FirebaseFirestore.instance.collection('tables').snapshots();
+    return FirebaseFirestore.instance
+        .collection('tables')
+        .orderBy("tableNumber")
+        .snapshots();
   }
 
   Future<void> addTables({
