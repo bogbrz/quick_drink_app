@@ -1,12 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quick_drink_app/domain/repositories/table_repository.dart';
-import 'package:quick_drink_app/features/pages/tables_page/cubit/tables_page_cubit.dart';
-import 'package:quick_drink_app/firebase_options.dart';
-import 'package:quick_drink_app/menu_page.dart';
 import 'package:quick_drink_app/data_source/table_remote_data_source.dart';
+import 'package:quick_drink_app/domain/repositories/tables_repository.dart';
+import 'package:quick_drink_app/features/pages/tables_page/cubit/tables_page_cubit.dart';
+import 'package:quick_drink_app/features/pages/menu_page/menu_page.dart';
 
 class TablePage extends StatelessWidget {
   TablePage({
@@ -68,35 +65,13 @@ class TablePage extends StatelessWidget {
                               SizedBox(
                                 height: 5,
                               ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 2,
-                                      child: Text("Number of the clients",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge)),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width / 7,
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder()),
-                                      controller: guestsQuantity,
-                                      keyboardType: TextInputType.number,
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ],
                           ),
                           IconButton(
                               onPressed: () {
                                 context.read<TablesPageCubit>().addTable(
                                     tableNumber: int.parse(tableNumber.text),
-                                    guestsQuantity:
-                                        int.parse(guestsQuantity.text));
+                                    );
                               },
                               icon: Icon(
                                 Icons.add_box,
@@ -117,46 +92,51 @@ class TablePage extends StatelessWidget {
                           Column(
                             children: [
                               for (final table in state.tables) ...[
-                                Material(
-                                  shape: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  clipBehavior: Clip.hardEdge,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) => MenuPage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 2,
-                                            color: Colors.black,
+                                Dismissible(
+                                  key: ValueKey(table.id),
+                                  onDismissed: (_) {
+                                    context
+                                        .read<TablesPageCubit>()
+                                        .removeTable(docId: table.id);
+                                  },
+                                  child: Material(
+                                    shape: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                    clipBehavior: Clip.hardEdge,
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => MenuPage(),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(100)),
-                                      width:
-                                          MediaQuery.of(context).size.width / 2,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              4,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text("${table.tableNumber}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium),
-                                          Text("${table.guestsQuantity}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium),
-                                        ],
+                                        );
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 2,
+                                              color: Colors.black,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(100)),
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                4,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text("${table.tableNumber}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayMedium),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -5,10 +5,15 @@ class TableRemoteDataSource {
     return FirebaseFirestore.instance.collection('tables').snapshots();
   }
 
-  Future<void> addTables(
-      {required int tableNumber, required int guestsQuantity}) async {
-    FirebaseFirestore.instance
-        .collection('tables')
-        .add({"tableNumber": tableNumber, "guestsQuantity": guestsQuantity});
+  Future<void> addTables({
+    required int tableNumber,
+  }) async {
+    FirebaseFirestore.instance.collection('tables').add({
+      "tableNumber": tableNumber,
+    });
+  }
+
+  Future<void> removeTable({required String docId}) async {
+    return FirebaseFirestore.instance.collection('tables').doc(docId).delete();
   }
 }
