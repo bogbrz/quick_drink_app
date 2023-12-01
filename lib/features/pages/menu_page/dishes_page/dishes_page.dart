@@ -27,7 +27,7 @@ class DishesPage extends StatelessWidget {
               for (final dish in state.dishesList) ...[
                 Row(
                   children: [
-                    MenuListWidget(dish: dish),
+                    DishesListWidget(dish: dish),
                     CounterWidget(),
                   ],
                 ),
@@ -98,7 +98,7 @@ class _CounterWidgetState extends State<CounterWidget> {
               color: Colors.black,
             ),
           ),
-          height: MediaQuery.of(context).size.width * 0.25,
+          height: MediaQuery.of(context).size.width * 0.3,
           width: MediaQuery.of(context).size.width * 0.2,
           child: Text(
             "$counter",
@@ -110,8 +110,8 @@ class _CounterWidgetState extends State<CounterWidget> {
   }
 }
 
-class MenuListWidget extends StatelessWidget {
-  const MenuListWidget({
+class DishesListWidget extends StatelessWidget {
+  const DishesListWidget({
     super.key,
     required this.dish,
   });
@@ -122,7 +122,7 @@ class MenuListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.6,
-      height: MediaQuery.of(context).size.width * 0.25,
+      height: MediaQuery.of(context).size.width * 0.3,
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border.all(

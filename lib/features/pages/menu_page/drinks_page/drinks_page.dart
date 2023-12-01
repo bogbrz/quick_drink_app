@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/data_source/drinks_remote_data_source.dart';
+import 'package:quick_drink_app/domain/models/drink_model.dart';
 import 'package:quick_drink_app/domain/repositories/drinks_repository.dart';
+import 'package:quick_drink_app/features/pages/menu_page/dishes_page/dishes_page.dart';
 import 'package:quick_drink_app/features/pages/menu_page/drinks_page/cubit/drinks_page_cubit.dart';
 
 class DrinksPage extends StatelessWidget {
@@ -24,37 +26,69 @@ class DrinksPage extends StatelessWidget {
             ),
             body: ListView(
               children: [
-                Column(
-                  children: [
-                    for (final drink in state.drinksList) ...[
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 2,
-                            color: Colors.black,
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(drink.drinkId.toString()),
-                            Text(drink.name),
-                            Text(
-                              drink.ingredients,
-                            ),
-                            Text(drink.price.toString())
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                    ]
-                  ],
-                ),
+                for (final drink in state.drinksList) ...[
+                  Row(
+                    children: [
+                      DrinkListWidget(drink: drink),
+                      CounterWidget(),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                ],
               ],
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class DrinkListWidget extends StatelessWidget {
+  const DrinkListWidget({
+    super.key,
+    required this.drink,
+  });
+
+  final DrinkModel drink;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.6,
+      height: MediaQuery.of(context).size.width * 0.3,
+      margin: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 2,
+          color: Colors.black,
+        ),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("${drink.drinkId.toString()}. ${drink.name}"),
+                Text("  Price: ${drink.price.toString()}")
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: [
+                Text(
+                  "Ingredients: ${drink.ingredients}",
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
