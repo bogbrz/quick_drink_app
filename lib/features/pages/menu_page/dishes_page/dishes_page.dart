@@ -75,22 +75,20 @@ class _CounterWidgetState extends State<CounterWidget> {
                 icon: Icon(Icons.add_box_rounded),
               ),
               IconButton(
-                  onPressed: () {
-                    setState(() {
-                      counter = counter - 1;
-                      if (counter == 0) {
-                        setState(() {
-                          counter = 0;
-                        });
-                      }
-                    });
-                  },
+                  onPressed: counter == 0
+                      ? null
+                      : () {
+                          setState(() {
+                            counter = counter - 1;
+                          });
+                        },
                   iconSize: (MediaQuery.of(context).size.width * 0.25) / 3,
                   icon: Icon(Icons.remove_circle)),
             ],
           ),
         ),
         Container(
+          margin: EdgeInsets.all(8),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             border: Border.all(
