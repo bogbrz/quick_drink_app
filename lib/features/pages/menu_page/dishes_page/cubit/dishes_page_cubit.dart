@@ -5,23 +5,29 @@ import 'package:quick_drink_app/domain/repositories/dishes_repository.dart';
 part 'dishes_page_state.dart';
 
 class DishesPageCubit extends Cubit<DishesPageState> {
-  DishesPageCubit({required this.dishesRepository}) : super(DishesPageState(errorMessage: '', dishesList: [],),);
+  DishesPageCubit({required this.dishesRepository})
+      : super(
+          DishesPageState(
+            errorMessage: '',
+            dishesList: [],
+          ),
+        );
 
-   final DishesRepository dishesRepository;
+  final DishesRepository dishesRepository;
 
   Future<void> start() async {
-    final results = await dishesRepository.getDishes();
+    final results = await dishesRepository.getExampleDishes();
 
     try {
       emit(
-       DishesPageState(
+        DishesPageState(
           errorMessage: '',
           dishesList: results,
         ),
       );
     } catch (error) {
       emit(
-       DishesPageState(
+        DishesPageState(
           errorMessage: error.toString(),
           dishesList: [],
         ),
@@ -29,5 +35,3 @@ class DishesPageCubit extends Cubit<DishesPageState> {
     }
   }
 }
-
-

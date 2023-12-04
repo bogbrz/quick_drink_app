@@ -6,12 +6,21 @@ class DishesRepository {
 
   DishesRepository({required this.dishesRemoteDataSource});
 
-  Future<List<DishModel>> getDishes() async {
-    final json = await dishesRemoteDataSource.getDishesData();
+  Future<List<DishModel>> getExampleDishes() async {
+    final json = await dishesRemoteDataSource.getExampleDishesData();
     if (json == null) {
       return [];
     }
 
     return json.map((item) => DishModel.fromJson(item)).toList();
+  }
+
+  Future<void> addDish(
+      {required String name,
+      required double price,
+      required String ingredients,
+      required int mealId}) async {
+    return dishesRemoteDataSource.addDish(
+        name: name, price: price, ingredients: ingredients, mealId: mealId);
   }
 }

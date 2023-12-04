@@ -3,13 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/data_source/dishes_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/dish_model.dart';
 import 'package:quick_drink_app/domain/repositories/dishes_repository.dart';
+import 'package:quick_drink_app/features/pages/menu_page/add_page/add_page.dart';
 import 'package:quick_drink_app/features/pages/menu_page/dishes_page/cubit/dishes_page_cubit.dart';
 
-class DishesPage extends StatelessWidget {
+class DishesPage extends StatefulWidget {
   const DishesPage({
     super.key,
   });
 
+  @override
+  State<DishesPage> createState() => _DishesPageState();
+}
+
+var menuType = 1;
+
+class _DishesPageState extends State<DishesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -23,19 +31,80 @@ class DishesPage extends StatelessWidget {
             appBar: AppBar(
               title: Text("Dishes"),
             ),
-            body: ListView(children: [
-              for (final dish in state.dishesList) ...[
+            body: Column(
+              children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    DishesListWidget(dish: dish),
-                    CounterWidget(),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          menuType = 0;
+                        });
+                      },
+                      child: Text(
+                        "Created menu ",
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          menuType = 1;
+                        });
+                      },
+                      child: Text(
+                        "Test menu",
+                      ),
+                    ),
                   ],
                 ),
-                SizedBox(
-                  height: 8,
-                ),
-              ]
-            ]),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      if (menuType == 1) ...[
+                        Expanded(
+                          child: ListView(
+                            children: [
+                              for (final dish in state.dishesList) ...[
+                                Row(
+                                  children: [
+                                    DishesListWidget(dish: dish),
+                                    DishCounterWidget(),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                              ]
+                            ],
+                          ),
+                        ),
+                      ] else ...[
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20, bottom: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              FloatingActionButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => AddPage(),
+                                    ),
+                                  );
+                                },
+                                child: Icon(Icons.add),
+                              ),
+                            ],
+                          ),
+                        )
+                      ]
+                    ],
+                  ),
+                )
+              ],
+            ),
           );
         },
       ),
@@ -43,18 +112,20 @@ class DishesPage extends StatelessWidget {
   }
 }
 
-class CounterWidget extends StatefulWidget {
-  const CounterWidget({
+
+
+class DishCounterWidget extends StatefulWidget {
+  const DishCounterWidget({
     super.key,
   });
 
   @override
-  State<CounterWidget> createState() => _CounterWidgetState();
+  State<DishCounterWidget> createState() => _DishCounterWidgetState();
 }
 
 var counter = 0;
 
-class _CounterWidgetState extends State<CounterWidget> {
+class _DishCounterWidgetState extends State<DishCounterWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(

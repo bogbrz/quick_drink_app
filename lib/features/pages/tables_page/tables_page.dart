@@ -10,7 +10,6 @@ class TablePage extends StatelessWidget {
     super.key,
   });
   final tableNumber = TextEditingController();
-  final guestsQuantity = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
