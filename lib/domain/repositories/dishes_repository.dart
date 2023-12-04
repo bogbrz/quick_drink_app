@@ -23,4 +23,16 @@ class DishesRepository {
     return dishesRemoteDataSource.addDish(
         name: name, price: price, ingredients: ingredients, mealId: mealId);
   }
+
+  Stream<List<DishModel>> getAddedDishesData() {
+    return dishesRemoteDataSource.getAddedDishesData().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return DishModel(
+            ingredients: doc['ingredients'],
+            price: doc['price'],
+            name: doc['name'],
+            mealId: doc["meal_id"]);
+      }).toList();
+    });
+  }
 }

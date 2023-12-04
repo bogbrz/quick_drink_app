@@ -15,7 +15,7 @@ class DishesPage extends StatefulWidget {
   State<DishesPage> createState() => _DishesPageState();
 }
 
-var menuType = 1;
+var menuType = 0;
 
 class _DishesPageState extends State<DishesPage> {
   @override
@@ -23,8 +23,7 @@ class _DishesPageState extends State<DishesPage> {
     return BlocProvider(
       create: (context) => DishesPageCubit(
           dishesRepository: DishesRepository(
-              dishesRemoteDataSource: DishesRemoteDataSource()))
-        ..start(),
+              dishesRemoteDataSource: DishesRemoteDataSource())),
       child: BlocBuilder<DishesPageCubit, DishesPageState>(
         builder: (context, state) {
           return Scaffold(
@@ -39,7 +38,8 @@ class _DishesPageState extends State<DishesPage> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          menuType = 0;
+                          menuType = 1;
+                          context.read<DishesPageCubit>().addedDishesData();
                         });
                       },
                       child: Text(
@@ -49,7 +49,8 @@ class _DishesPageState extends State<DishesPage> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          menuType = 1;
+                          menuType = 0;
+                          context.read<DishesPageCubit>().testList();
                         });
                       },
                       child: Text(
@@ -62,25 +63,24 @@ class _DishesPageState extends State<DishesPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      if (menuType == 1) ...[
-                        Expanded(
-                          child: ListView(
-                            children: [
-                              for (final dish in state.dishesList) ...[
-                                Row(
-                                  children: [
-                                    DishesListWidget(dish: dish),
-                                    DishCounterWidget(),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                              ]
-                            ],
-                          ),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            for (final dish in state.dishesList) ...[
+                              Row(
+                                children: [
+                                  DishesListWidget(dish: dish),
+                                  DishCounterWidget(),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                            ]
+                          ],
                         ),
-                      ] else ...[
+                      ),
+                      if (menuType == 1) ...[
                         Padding(
                           padding: const EdgeInsets.only(right: 20, bottom: 20),
                           child: Row(
@@ -111,8 +111,6 @@ class _DishesPageState extends State<DishesPage> {
     );
   }
 }
-
-
 
 class DishCounterWidget extends StatefulWidget {
   const DishCounterWidget({

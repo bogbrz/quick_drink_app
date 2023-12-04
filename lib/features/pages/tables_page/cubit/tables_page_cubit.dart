@@ -39,8 +39,17 @@ class TablesPageCubit extends Cubit<TablesPageState> {
     tableRepository.removeTable(docId: docId);
   }
 
-  Future<void> addTable({required tableNumber, }) async {
+  Future<void> addTable({
+    required tableNumber,
+  }) async {
     tableRepository.addTables(
-        tableNumber: tableNumber, );
+      tableNumber: tableNumber,
+    );
+  }
+
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
   }
 }

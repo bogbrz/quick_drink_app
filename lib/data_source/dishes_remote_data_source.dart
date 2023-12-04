@@ -18,9 +18,11 @@ class DishesRemoteDataSource {
     );
   }
 
-  Stream<QuerySnapshot<Map<String,dynamic>>> getAddedDishesData()  {
-    return firebase
-
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAddedDishesData() {
+    return FirebaseFirestore.instance
+        .collection("Menu")
+        .orderBy("meal_id")
+        .snapshots();
   }
 
   Future<List<Map<String, dynamic>>?> getExampleDishesData() async {

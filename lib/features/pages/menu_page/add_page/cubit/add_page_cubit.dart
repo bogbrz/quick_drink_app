@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:quick_drink_app/domain/models/dish_model.dart';
 import 'package:quick_drink_app/domain/repositories/dishes_repository.dart';
@@ -9,6 +11,7 @@ class AddPageCubit extends Cubit<AddPageState> {
       : super(AddPageState(dishes: [], errorMessage: ''));
 
   final DishesRepository dishesRepository;
+  StreamSubscription? streamSubscription;
 
   Future<void> addDish(
       {required String name,

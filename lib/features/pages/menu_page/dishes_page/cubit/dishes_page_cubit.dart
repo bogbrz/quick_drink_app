@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:quick_drink_app/domain/models/dish_model.dart';
 import 'package:quick_drink_app/domain/repositories/dishes_repository.dart';
@@ -14,8 +16,9 @@ class DishesPageCubit extends Cubit<DishesPageState> {
         );
 
   final DishesRepository dishesRepository;
+  StreamSubscription? streamSubscription;
 
-  Future<void> start() async {
+  Future<void> testList() async {
     final results = await dishesRepository.getExampleDishes();
 
     try {
@@ -33,5 +36,31 @@ class DishesPageCubit extends Cubit<DishesPageState> {
         ),
       );
     }
+  }
+
+  Future<void> addedDishesData() async {
+    streamSubscription =
+        dishesRepository.getAddedDishesData().listen((results) {
+      emit(
+        DishesPageState(
+          errorMessage: '',
+          dishesList: results,
+        ),
+      );
+    })
+          ..onError((error) {
+            emit(
+              DishesPageState(
+                errorMessage: error,
+                dishesList: [],
+              ),
+            );
+          });
+  }
+
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
   }
 }
