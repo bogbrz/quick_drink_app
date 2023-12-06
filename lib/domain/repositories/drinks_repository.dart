@@ -27,7 +27,7 @@ class DrinksRepository {
     return drinksRemoteDataSource.getAddedDrinksData().map((snapshot) {
       return snapshot.docs.map((doc) {
         return DrinkModel(
-            name: doc['drink'],
+            name: doc['name'],
             drinkId: doc['drink_id'],
             price: doc["price"],
             ingredients: doc['ingredients']);

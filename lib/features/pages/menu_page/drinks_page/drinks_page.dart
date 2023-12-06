@@ -22,10 +22,8 @@ class _DrinksPageState extends State<DrinksPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DrinksPageCubit(
-        drinksRepository: DrinksRepository(
-          drinksRemoteDataSource: DrinksRemoteDataSource(),
-        ),
-      ),
+          drinksRepository: DrinksRepository(
+              drinksRemoteDataSource: DrinksRemoteDataSource())),
       child: BlocBuilder<DrinksPageCubit, DrinksPageState>(
         builder: (context, state) {
           return Scaffold(
@@ -77,33 +75,33 @@ class _DrinksPageState extends State<DrinksPage> {
                               SizedBox(
                                 height: 8,
                               ),
-                            ],
+                            ]
                           ],
                         ),
                       ),
+                      if (menuType == 1) ...[
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20, bottom: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              FloatingActionButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => AddPage(),
+                                    ),
+                                  );
+                                },
+                                child: Icon(Icons.add),
+                              ),
+                            ],
+                          ),
+                        )
+                      ]
                     ],
                   ),
-                ),
-                if (menuType == 1) ...[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20, bottom: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        FloatingActionButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => AddPage(),
-                              ),
-                            );
-                          },
-                          child: Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                  )
-                ]
+                )
               ],
             ),
           );
