@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -11,11 +10,17 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: DecoratedBox(
-          decoration:
-              BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
-          child: Text(
-            "dupa1",
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+                border: Border.all(width: 2, color: Colors.black)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Create your own menu",
+              ),
+            ),
           ),
         ),
       ),
