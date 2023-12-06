@@ -5,12 +5,33 @@ class DrinksRepository {
   DrinksRepository({required this.drinksRemoteDataSource});
   final DrinksRemoteDataSource drinksRemoteDataSource;
 
-  Future<List<DrinkModel>> getDrinks() async {
-    final json = await drinksRemoteDataSource.getDrinksData();
+  Future<List<DrinkModel>> getExampleDrinks() async {
+    final json = await drinksRemoteDataSource.getExampleDrinksData();
     if (json == null) {
       return [];
     }
 
     return json.map((e) => DrinkModel.fromJson(e)).toList();
+  }
+
+  Future<void> addDrink(
+      {required String name,
+      required double price,
+      required String ingredients,
+      required int drinkId}) async {
+    return drinksRemoteDataSource.addDrink(
+        name: name, price: price, ingredients: ingredients, drinkId: drinkId);
+  }
+
+  Stream<List<DrinkModel>> getAddedDrinksData() {
+    return drinksRemoteDataSource.getAddedDrinksData().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return DrinkModel(
+            name: doc['drink'],
+            drinkId: doc['drink_id'],
+            price: doc["price"],
+            ingredients: doc['ingredients']);
+      }).toList();
+    });
   }
 }

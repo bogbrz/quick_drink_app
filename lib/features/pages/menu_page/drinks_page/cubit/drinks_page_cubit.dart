@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:quick_drink_app/domain/models/drink_model.dart';
 import 'package:quick_drink_app/domain/repositories/drinks_repository.dart';
@@ -14,9 +16,10 @@ class DrinksPageCubit extends Cubit<DrinksPageState> {
         );
 
   final DrinksRepository drinksRepository;
+  StreamSubscription? streamSubscription;
 
-  Future<void> start() async {
-    final results = await drinksRepository.getDrinks();
+  Future<void> testList() async {
+    final results = await drinksRepository.getExampleDrinks();
     try {
       emit(
         DrinksPageState(
@@ -32,5 +35,26 @@ class DrinksPageCubit extends Cubit<DrinksPageState> {
         ),
       );
     }
+  }
+
+  Future<void> addedDrinksData() async {
+    streamSubscription =
+        drinksRepository.getAddedDrinksData().listen((results) {
+      emit(DrinksPageState(errorMessage: '', drinksList: results));
+    })
+          ..onError((error) {
+            emit(
+              DrinksPageState(
+                errorMessage: error,
+                drinksList: [],
+              ),
+            );
+          });
+  }
+
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
   }
 }

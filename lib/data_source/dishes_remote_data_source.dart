@@ -8,7 +8,7 @@ class DishesRemoteDataSource {
       required double price,
       required String ingredients,
       required int mealId}) async {
-    await FirebaseFirestore.instance.collection("Menu").add(
+    await FirebaseFirestore.instance.collection("Dishes").add(
       {
         "name": name,
         "price": price,
@@ -20,7 +20,7 @@ class DishesRemoteDataSource {
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getAddedDishesData() {
     return FirebaseFirestore.instance
-        .collection("Menu")
+        .collection("Dishes")
         .orderBy("meal_id")
         .snapshots();
   }
