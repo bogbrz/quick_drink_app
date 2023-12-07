@@ -24,6 +24,19 @@ class DishesRepository {
         name: name, price: price, ingredients: ingredients, mealId: mealId);
   }
 
+  Future<void> addDishToPreOrder({
+    required int tableNumber,
+    required String dishName,
+    required int quantity,
+    required double price,
+  }) async {
+    return dishesRemoteDataSource.addDishToPreOrders(
+        tableNumber: tableNumber,
+        dishName: dishName,
+        quantity: quantity,
+        price: price);
+  }
+
   Stream<List<DishModel>> getAddedDishesData() {
     return dishesRemoteDataSource.getAddedDishesData().map((snapshot) {
       return snapshot.docs.map((doc) {

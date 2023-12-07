@@ -58,6 +58,19 @@ class DishesPageCubit extends Cubit<DishesPageState> {
           });
   }
 
+  Future<void> addDishToPreOrders({
+    required int tableNumber,
+    required String dishName,
+    required int quantity,
+    required double price,
+  }) async {
+    dishesRepository.addDishToPreOrder(
+        tableNumber: tableNumber,
+        dishName: dishName,
+        quantity: quantity,
+        price: price);
+  }
+
   @override
   Future<void> close() {
     streamSubscription?.cancel();

@@ -23,7 +23,8 @@ class _DrinksPageState extends State<DrinksPage> {
     return BlocProvider(
       create: (context) => DrinksPageCubit(
           drinksRepository: DrinksRepository(
-              drinksRemoteDataSource: DrinksRemoteDataSource())),
+              drinksRemoteDataSource: DrinksRemoteDataSource()))
+        ..addedDrinksData(),
       child: BlocBuilder<DrinksPageCubit, DrinksPageState>(
         builder: (context, state) {
           return Scaffold(
@@ -146,8 +147,7 @@ class _DrinkListWidgetState extends State<DrinkListWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                        "${widget.drink.drinkId.toString()}. ${widget.drink.name}"),
+                    Text("${widget.drink.name}"),
                     Text("  Price: ${widget.drink.price.toString()}")
                   ],
                 ),

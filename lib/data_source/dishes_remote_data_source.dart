@@ -37,4 +37,18 @@ class DishesRemoteDataSource {
 
     return listDynamic.map((e) => e as Map<String, dynamic>).toList();
   }
+
+  Future<void> addDishToPreOrders({
+    required int tableNumber,
+    required String dishName,
+    required int quantity,
+    required double price,
+  }) async {
+    await FirebaseFirestore.instance.collection("PreOrder").add({
+      "tableNumber": tableNumber,
+      "name": dishName,
+      "quantity": quantity,
+      "price" : price,
+    });
+  }
 }
