@@ -34,4 +34,17 @@ class DrinksRepository {
       }).toList();
     });
   }
+
+  Future<void> addDrinkToPreOrders({
+    required int tableNumber,
+    required String drinkName,
+    required int quantity,
+    required double price,
+  }) async {
+    return drinksRemoteDataSource.addDrinkToPreOrders(
+        tableNumber: tableNumber,
+        drinkName: drinkName,
+        quantity: quantity,
+        price: price);
+  }
 }

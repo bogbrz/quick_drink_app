@@ -37,4 +37,18 @@ class DrinksRemoteDataSource {
       },
     );
   }
+
+  Future<void> addDrinkToPreOrders({
+    required int tableNumber,
+    required String drinkName,
+    required int quantity,
+    required double price,
+  }) async {
+    await FirebaseFirestore.instance.collection("PreOrderDrinks").add({
+      "tableNumber": tableNumber,
+      "name": drinkName,
+      "quantity": quantity,
+      "price": price,
+    });
+  }
 }

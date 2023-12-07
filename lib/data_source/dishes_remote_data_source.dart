@@ -44,11 +44,11 @@ class DishesRemoteDataSource {
     required int quantity,
     required double price,
   }) async {
-    await FirebaseFirestore.instance.collection("PreOrder").add({
+    await FirebaseFirestore.instance.collection("PreOrderDishes").add({
       "tableNumber": tableNumber,
       "name": dishName,
       "quantity": quantity,
-      "price" : price,
+      "price": price,
     });
   }
 }

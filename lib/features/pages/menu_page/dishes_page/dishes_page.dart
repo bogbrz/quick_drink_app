@@ -31,7 +31,7 @@ class _DishesPageState extends State<DishesPage> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Dishes"),
+              title: Text("Dishes table ${widget.tableNumber}"),
             ),
             body: Column(
               children: [

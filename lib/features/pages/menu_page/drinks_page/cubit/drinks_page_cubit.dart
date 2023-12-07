@@ -37,6 +37,19 @@ class DrinksPageCubit extends Cubit<DrinksPageState> {
     }
   }
 
+  Future<void> addDrinkToPreOrders({
+    required int tableNumber,
+    required String drinkName,
+    required int quantity,
+    required double price,
+  }) async {
+    drinksRepository.addDrinkToPreOrders(
+        tableNumber: tableNumber,
+        drinkName: drinkName,
+        quantity: quantity,
+        price: price);
+  }
+
   Future<void> addedDrinksData() async {
     drinksRepository.getAddedDrinksData().listen((results) {
       emit(

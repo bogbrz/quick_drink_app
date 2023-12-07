@@ -28,7 +28,9 @@ class _MenuPageState extends State<MenuPage> {
           );
         }
         if (pageIndex == 1) {
-          return DrinksPage();
+          return DrinksPage(
+            tableNumber: widget.tableNumber,
+          );
         } else {
           return OrderPage();
         }
