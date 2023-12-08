@@ -32,7 +32,9 @@ class _MenuPageState extends State<MenuPage> {
             tableNumber: widget.tableNumber,
           );
         } else {
-          return OrderPage();
+          return OrderPage(
+            tableNumber: widget.tableNumber,
+          );
         }
       }),
       bottomNavigationBar: BottomNavigationBar(
