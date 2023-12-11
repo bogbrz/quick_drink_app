@@ -63,12 +63,14 @@ class DishesPageCubit extends Cubit<DishesPageState> {
     required String dishName,
     required int quantity,
     required double price,
+   
   }) async {
     dishesRepository.addDishToPreOrder(
         tableNumber: tableNumber,
         dishName: dishName,
         quantity: quantity,
-        price: price);
+        price: price,
+        );
   }
 
   @override

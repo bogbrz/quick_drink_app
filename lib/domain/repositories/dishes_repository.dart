@@ -29,12 +29,13 @@ class DishesRepository {
     required String dishName,
     required int quantity,
     required double price,
+   
   }) async {
     return dishesRemoteDataSource.addDishToPreOrders(
         tableNumber: tableNumber,
         dishName: dishName,
         quantity: quantity,
-        price: price);
+        price: price, );
   }
 
   Stream<List<DishModel>> getAddedDishesData() {

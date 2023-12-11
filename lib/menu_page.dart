@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quick_drink_app/domain/models/dish_model.dart';
 import 'package:quick_drink_app/features/pages/menu_page/dishes_page/dishes_page.dart';
 import 'package:quick_drink_app/features/pages/menu_page/drinks_page/drinks_page.dart';
 import 'package:quick_drink_app/features/pages/menu_page/order_page/order_page.dart';
