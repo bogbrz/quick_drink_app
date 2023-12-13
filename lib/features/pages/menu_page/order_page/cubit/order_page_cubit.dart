@@ -10,6 +10,7 @@ class OrderPageCubit extends Cubit<OrderPageState> {
   OrderPageCubit({required this.preOrdersRepository})
       : super(
           OrderPageState(
+            orderValue: 0,
             orders: [],
             errorMessage: "",
           ),
@@ -18,15 +19,23 @@ class OrderPageCubit extends Cubit<OrderPageState> {
   final PreOrdersRepository preOrdersRepository;
   StreamSubscription? streamSubscription;
 
-  Future<void> getPreOrder() async {
-    streamSubscription = preOrdersRepository.getPreOrder().listen((event) {
+  Future<void> getPreOrder({required int tableNumber}) async {
+    double value = 0;
+    streamSubscription = preOrdersRepository
+        .getPreOrder(tableNumber: tableNumber)
+        .listen((orders) {
+      for (final order in orders) {
+        value = value + order.orderPrice;
+      }
       emit(OrderPageState(
+        orderValue: value,
         errorMessage: '',
-        orders: event,
+        orders: orders,
       ));
     })
       ..onError((error) {
-        emit(OrderPageState(errorMessage: error.toString(), orders: []));
+        emit(OrderPageState(
+            errorMessage: error.toString(), orders: [], orderValue: 0));
       });
   }
 

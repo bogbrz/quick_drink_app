@@ -41,7 +41,7 @@ class DrinksRepository {
     required int quantity,
     required double price,
   }) async {
-    return drinksRemoteDataSource.addDrinkToPreOrders(
+    await drinksRemoteDataSource.addDrinkToPreOrders(
         tableNumber: tableNumber,
         drinkName: drinkName,
         quantity: quantity,

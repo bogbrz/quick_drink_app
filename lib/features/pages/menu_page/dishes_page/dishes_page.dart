@@ -221,16 +221,18 @@ class _DishesListWidgetState extends State<DishesListWidget> {
               height: 16,
             ),
             InkWell(
-              onTap: () {
-                context.read<DishesPageCubit>().addDishToPreOrders(
-                    tableNumber: widget.tableNumber,
-                    dishName: widget.dish.name,
-                    price: widget.dish.price,
-                    quantity: counter);
-                setState(() {
-                  counter = 0;
-                });
-              },
+              onTap: counter == 0
+                  ? null
+                  : () {
+                      context.read<DishesPageCubit>().addDishToPreOrders(
+                          tableNumber: widget.tableNumber,
+                          dishName: widget.dish.name,
+                          price: widget.dish.price,
+                          quantity: counter);
+                      setState(() {
+                        counter = 0;
+                      });
+                    },
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(

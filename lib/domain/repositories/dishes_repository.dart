@@ -31,7 +31,7 @@ class DishesRepository {
     required double price,
    
   }) async {
-    return dishesRemoteDataSource.addDishToPreOrders(
+    await dishesRemoteDataSource.addDishToPreOrders(
         tableNumber: tableNumber,
         dishName: dishName,
         quantity: quantity,

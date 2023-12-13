@@ -12,4 +12,8 @@ class OrderModel {
   final double price;
   final int tableNumber;
   final String type;
+
+  double get orderPrice {
+    return quantity * price;
+  }
 }
