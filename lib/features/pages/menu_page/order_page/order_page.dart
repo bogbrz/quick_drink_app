@@ -25,7 +25,12 @@ class _OrderPageState extends State<OrderPage> {
           appBar: AppBar(
             title: Text("Order table ${widget.tableNumber}"),
           ),
-          body: BlocBuilder<OrderPageCubit, OrderPageState>(
+          body: BlocConsumer<OrderPageCubit, OrderPageState>(
+            listener: (context, state) {
+              if (state.errorMessage.isNotEmpty)
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+            },
             builder: (context, state) {
               context
                   .read<OrderPageCubit>()
@@ -37,8 +42,16 @@ class _OrderPageState extends State<OrderPage> {
                     child: ListView(
                       children: [
                         for (final order in state.orders) ...[
-                          OrderWidget(
-                            order: order,
+                          Dismissible(
+                            key: ValueKey(order.id),
+                            onDismissed: (_) {
+                              context
+                                  .read<OrderPageCubit>()
+                                  .removePreOrder(id: order.id);
+                            },
+                            child: OrderWidget(
+                              order: order,
+                            ),
                           ),
                         ]
                       ],
@@ -53,7 +66,22 @@ class _OrderPageState extends State<OrderPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton(
-                          onPressed: state.orders.isEmpty ? null : () {},
+                          onPressed: state.orders.isEmpty
+                              ? null
+                              : () {
+                                  for (final order in state.orders) {
+                                    context.read<OrderPageCubit>().addOrder(
+                                        name: order.name,
+                                        orderPrice: order.orderPrice,
+                                        type: order.type,
+                                        tableNumber: order.tableNumber,
+                                        quantity: order.quantity);
+
+                                    context
+                                        .read<OrderPageCubit>()
+                                        .removePreOrder(id: order.id);
+                                  }
+                                },
                           child: Text("Order"),
                         ),
                         Text("Sum: ${state.orderValue} ")

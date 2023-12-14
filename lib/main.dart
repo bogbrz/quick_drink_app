@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_drink_app/firebase_options.dart';
-import 'package:quick_drink_app/settings_page.dart';
+import 'package:quick_drink_app/bar_page.dart';
 import 'package:quick_drink_app/features/pages/tables_page/tables_page.dart';
+import 'package:quick_drink_app/kitchen_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,8 +46,11 @@ class _RootPageState extends State<RootPage> {
       body: Builder(builder: (context) {
         if (pageIndex == 0) {
           return TablePage();
+        }
+        if (pageIndex == 1) {
+          return BarPage();
         } else {
-          return SettingsPage();
+          return KitchenPage();
         }
       }),
       bottomNavigationBar: BottomNavigationBar(
@@ -64,8 +68,12 @@ class _RootPageState extends State<RootPage> {
             label: "Tables",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
+            icon: Icon(Icons.local_drink),
+            label: "Bar",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.food_bank),
+            label: "Kitchen",
           ),
         ],
       ),

@@ -39,6 +39,26 @@ class OrderPageCubit extends Cubit<OrderPageState> {
       });
   }
 
+  Future<void> addOrder({
+    required String type,
+    required int tableNumber,
+    required String name,
+    required int quantity,
+    required double orderPrice,
+  }) async {
+    preOrdersRepository.addOrder(
+      type: type,
+      name: name,
+      orderPrice: orderPrice,
+      tableNumber: tableNumber,
+      quantity: quantity,
+    );
+  }
+
+  Future<void> removePreOrder({required String id}) async {
+    preOrdersRepository.removePreOrder(id: id);
+  }
+
   @override
   Future<void> close() {
     streamSubscription?.cancel();

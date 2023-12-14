@@ -10,14 +10,34 @@ class PreOrdersRepository {
       return snapshot.docs
           .map((doc) {
             return OrderModel(
-                name: doc["name"],
-                quantity: doc["quantity"],
-                price: doc['price'],
-                tableNumber: doc["tableNumber"],
-                type: doc["type"]);
+              name: doc["name"],
+              quantity: doc["quantity"],
+              price: doc['price'],
+              tableNumber: doc["tableNumber"],
+              type: doc["type"],
+              id: doc.id,
+            );
           })
           .where((element) => element.tableNumber == tableNumber)
           .toList();
     });
+  }
+
+  Future<void> addOrder({
+    required int tableNumber,
+    required String name,
+    required int quantity,
+    required double orderPrice,
+    required String type
+  }) async {
+    preOrderRemoteDataSource.addOrder(
+        tableNumber: tableNumber,
+        name: name,
+        quantity: quantity,
+        orderPrice: orderPrice, type: type);
+  }
+
+  Future<void> removePreOrder({required String id}) async {
+    preOrderRemoteDataSource.removePreOrder(id: id);
   }
 }
