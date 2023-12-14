@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class DishesRemoteDataSource {
   Future<void> addDish(
@@ -36,5 +35,20 @@ class DishesRemoteDataSource {
     print(respone);
 
     return listDynamic.map((e) => e as Map<String, dynamic>).toList();
+  }
+
+  Future<void> addDishToPreOrders({
+    required int tableNumber,
+    required String dishName,
+    required int quantity,
+    required double price,
+  }) async {
+    await FirebaseFirestore.instance.collection("PreOrder").add({
+      "tableNumber": tableNumber,
+      "name": dishName,
+      "quantity": quantity,
+      "price": price,
+      "type": "dish",
+    });
   }
 }

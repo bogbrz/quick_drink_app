@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:quick_drink_app/features/pages/menu_page/dishes_page/dishes_page.dart';
 import 'package:quick_drink_app/features/pages/menu_page/drinks_page/drinks_page.dart';
+import 'package:quick_drink_app/features/pages/menu_page/order_page/order_page.dart';
 
 class MenuPage extends StatefulWidget {
-  const MenuPage({super.key});
+  const MenuPage({
+    super.key,
+    required this.tableNumber,
+  });
+  final int tableNumber;
 
   @override
   State<MenuPage> createState() => _MenuPageState();
@@ -17,9 +22,18 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       body: Builder(builder: (context) {
         if (pageIndex == 0) {
-          return DishesPage();
+          return DishesPage(
+            tableNumber: widget.tableNumber,
+          );
+        }
+        if (pageIndex == 1) {
+          return DrinksPage(
+            tableNumber: widget.tableNumber,
+          );
         } else {
-          return DrinksPage();
+          return OrderPage(
+            tableNumber: widget.tableNumber,
+          );
         }
       }),
       bottomNavigationBar: BottomNavigationBar(
@@ -39,6 +53,10 @@ class _MenuPageState extends State<MenuPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.local_drink),
             label: "Drinks",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt),
+            label: "Order",
           ),
         ],
       ),

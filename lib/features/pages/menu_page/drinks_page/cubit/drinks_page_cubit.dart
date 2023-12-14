@@ -37,21 +37,42 @@ class DrinksPageCubit extends Cubit<DrinksPageState> {
     }
   }
 
+  Future<void> addDrinkToPreOrders({
+    required int tableNumber,
+    required String drinkName,
+    required int quantity,
+    required double price,
+  }) async {
+    drinksRepository.addDrinkToPreOrders(
+        tableNumber: tableNumber,
+        drinkName: drinkName,
+        quantity: quantity,
+        price: price);
+  }
+
   Future<void> addedDrinksData() async {
-    drinksRepository.getAddedDrinksData().listen((results) {
+    streamSubscription =
+        drinksRepository.getAddedDrinksData().listen((results) {
       emit(
         DrinksPageState(
           errorMessage: '',
           drinksList: results,
         ),
       );
-    }).onError((error) {
-      emit(
-        DrinksPageState(
-          errorMessage: error,
-          drinksList: [],
-        ),
-      );
-    });
+    })
+          ..onError((error) {
+            emit(
+              DrinksPageState(
+                errorMessage: error,
+                drinksList: [],
+              ),
+            );
+          });
+  }
+
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
   }
 }

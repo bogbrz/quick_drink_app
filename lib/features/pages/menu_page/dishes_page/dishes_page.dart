@@ -9,7 +9,10 @@ import 'package:quick_drink_app/features/pages/menu_page/dishes_page/cubit/dishe
 class DishesPage extends StatefulWidget {
   const DishesPage({
     super.key,
+    required this.tableNumber,
   });
+
+  final int tableNumber;
 
   @override
   State<DishesPage> createState() => _DishesPageState();
@@ -22,12 +25,13 @@ class _DishesPageState extends State<DishesPage> {
     return BlocProvider(
       create: (context) => DishesPageCubit(
           dishesRepository: DishesRepository(
-              dishesRemoteDataSource: DishesRemoteDataSource())),
+              dishesRemoteDataSource: DishesRemoteDataSource()))
+        ..addedDishesData(),
       child: BlocBuilder<DishesPageCubit, DishesPageState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Dishes"),
+              title: Text("Dishes table ${widget.tableNumber}"),
             ),
             body: Column(
               children: [
@@ -67,12 +71,13 @@ class _DishesPageState extends State<DishesPage> {
                           children: [
                             for (final dish in state.dishesList) ...[
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  DishesListWidget(dish: dish),
+                                  DishesListWidget(
+                                    dish: dish,
+                                    tableNumber: widget.tableNumber,
+                                  ),
                                 ],
-                              ),
-                              SizedBox(
-                                height: 8,
                               ),
                             ]
                           ],
@@ -100,7 +105,7 @@ class _DishesPageState extends State<DishesPage> {
                       ]
                     ],
                   ),
-                )
+                ),
               ],
             ),
           );
@@ -114,9 +119,11 @@ class DishesListWidget extends StatefulWidget {
   const DishesListWidget({
     super.key,
     required this.dish,
+    required this.tableNumber,
   });
 
   final DishModel dish;
+  final int tableNumber;
 
   @override
   State<DishesListWidget> createState() => _DishesListWidgetState();
@@ -130,8 +137,8 @@ class _DishesListWidgetState extends State<DishesListWidget> {
       children: [
         Container(
           width: MediaQuery.of(context).size.width * 0.6,
-          height: MediaQuery.of(context).size.width * 0.3,
-          margin: EdgeInsets.all(8),
+          height: MediaQuery.of(context).size.height * 0.2,
+          margin: EdgeInsets.all(25),
           decoration: BoxDecoration(
             border: Border.all(
               width: 2,
@@ -139,63 +146,94 @@ class _DishesListWidgetState extends State<DishesListWidget> {
             ),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                        "${widget.dish.mealId.toString()}. ${widget.dish.name}"),
+                    Text(" ${widget.dish.name}"),
                     Text("Price: ${widget.dish.price.toString()}")
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  children: [
-                    Text(
-                      "Ingredients: ${widget.dish.ingredients}",
+              Row(
+                children: [
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Ingredients: ${widget.dish.ingredients}",
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    iconSize: (MediaQuery.of(context).size.width * 0.25) / 3,
+                    onPressed: () {
+                      setState(() {
+                        counter++;
+                      });
+                    },
+                    icon: Icon(Icons.add_box_rounded),
+                  ),
+                  IconButton(
+                      onPressed: counter == 0
+                          ? null
+                          : () {
+                              setState(() {
+                                counter = counter - 1;
+                              });
+                            },
+                      iconSize: (MediaQuery.of(context).size.width * 0.25) / 3,
+                      icon: Icon(Icons.remove_circle)),
+                ],
               ),
             ],
           ),
         ),
-        Container(
-          child: Row(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.width * 0.25,
-                child: Column(
-                  children: [
-                    IconButton(
-                      iconSize: (MediaQuery.of(context).size.width * 0.25) / 3,
-                      onPressed: () {
-                        setState(() {
-                          counter++;
-                        });
-                      },
-                      icon: Icon(Icons.add_box_rounded),
-                    ),
-                    IconButton(
-                        onPressed: counter == 0
-                            ? null
-                            : () {
-                                setState(() {
-                                  counter = counter - 1;
-                                });
-                              },
-                        iconSize:
-                            (MediaQuery.of(context).size.width * 0.25) / 3,
-                        icon: Icon(Icons.remove_circle)),
-                  ],
+        Column(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 2,
+                  color: Colors.black,
                 ),
               ),
-              Container(
-                margin: EdgeInsets.all(8),
+              width: MediaQuery.of(context).size.width * 0.2,
+              height: MediaQuery.of(context).size.height * 0.1 - 8,
+              child: Text(
+                "$counter",
+                style: TextStyle(fontSize: 45),
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            InkWell(
+              onTap: counter == 0
+                  ? null
+                  : () {
+                      context.read<DishesPageCubit>().addDishToPreOrders(
+                          tableNumber: widget.tableNumber,
+                          dishName: widget.dish.name,
+                          price: widget.dish.price,
+                          quantity: counter);
+                      setState(() {
+                        counter = 0;
+                      });
+                    },
+              child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -203,16 +241,26 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                     color: Colors.black,
                   ),
                 ),
-                height: MediaQuery.of(context).size.width * 0.3,
                 width: MediaQuery.of(context).size.width * 0.2,
-                child: Text(
-                  "$counter",
-                  style: TextStyle(fontSize: 45),
+                height: MediaQuery.of(context).size.height * 0.1 - 8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          "Add to order",
+                        ),
+                      ),
+                    ),
+                    Icon(Icons.add_box_outlined)
+                  ],
                 ),
-              )
-            ],
-          ),
-        )
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
