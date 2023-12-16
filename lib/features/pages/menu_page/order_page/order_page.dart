@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/data_source/order_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/order_model.dart';
-
 import 'package:quick_drink_app/domain/repositories/order_repository.dart';
 import 'package:quick_drink_app/features/pages/menu_page/order_page/cubit/order_page_cubit.dart';
 
@@ -23,10 +20,14 @@ class _OrderPageState extends State<OrderPage> {
     return BlocProvider(
       create: (context) => OrderPageCubit(
           orderRepository:
-              OrderRepository(orderRemoteDataSource: OrderRemotDataSource())),
+              OrderRepository(orderRemoteDataSource: OrderRemotDataSource()))
+        ..getPreOrder(tableNumber: widget.tableNumber),
       child: Scaffold(
           appBar: AppBar(
-            title: Text("Order table ${widget.tableNumber}"),
+            shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
+            backgroundColor: Colors.orange,
+            title: Text("Order table ${widget.tableNumber}",
+                style: Theme.of(context).textTheme.headlineLarge),
           ),
           body: BlocConsumer<OrderPageCubit, OrderPageState>(
             listener: (context, state) {
@@ -41,26 +42,52 @@ class _OrderPageState extends State<OrderPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              index = 0;
-                              context
-                                  .read<OrderPageCubit>()
-                                  .getPreOrder(tableNumber: widget.tableNumber);
-                            });
-                          },
-                          child: Text("Order")),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              index = 1;
-                              context
-                                  .read<OrderPageCubit>()
-                                  .getOrder(tableNumber: widget.tableNumber);
-                            });
-                          },
-                          child: Text("Already ordered"))
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            index = 0;
+                            context
+                                .read<OrderPageCubit>()
+                                .getPreOrder(tableNumber: widget.tableNumber);
+                          });
+                        },
+                        child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Colors.orangeAccent,
+                                border: Border(
+                                    bottom: BorderSide(width: 2),
+                                    right: BorderSide(width: 1))),
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            child: Text(
+                              "Order",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            )),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            index = 1;
+                            context
+                                .read<OrderPageCubit>()
+                                .getOrder(tableNumber: widget.tableNumber);
+                          });
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.deepOrange,
+                                border: Border(
+                                    bottom: BorderSide(width: 2),
+                                    left: BorderSide(width: 1))),
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            child: Text(
+                              "Already Ordered",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            )),
+                      ),
                     ],
                   ),
                   Expanded(
@@ -90,16 +117,16 @@ class _OrderPageState extends State<OrderPage> {
                           ),
                         ),
                         Container(
-                          height: MediaQuery.of(context).size.height / 12,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
+                              color: Colors.orange,
                               border:
                                   Border.all(width: 2, color: Colors.black)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              ElevatedButton(
-                                onPressed: state.orders.isEmpty
+                              InkWell(
+                                onTap: state.orders.isEmpty
                                     ? null
                                     : () {
                                         for (final order in state.orders) {
@@ -124,10 +151,27 @@ class _OrderPageState extends State<OrderPage> {
                                           }
                                         }
                                       },
-                                child:
-                                    index == 0 ? Text("Order") : Text("Finish"),
+                                child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    margin: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: Colors.deepOrange,
+                                        border: Border.all(width: 2),
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    child: index == 0
+                                        ? Text("Order",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineLarge)
+                                        : Text("Finish",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineLarge)),
                               ),
-                              Text("Sum: ${state.orderValue} ")
+                              Text("Sum: ${state.orderValue} ",
+                                  style:
+                                      Theme.of(context).textTheme.headlineLarge)
                             ],
                           ),
                         )

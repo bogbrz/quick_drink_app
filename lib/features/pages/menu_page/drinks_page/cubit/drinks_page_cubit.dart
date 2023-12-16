@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:quick_drink_app/domain/models/drink_model.dart';
-import 'package:quick_drink_app/domain/repositories/drinks_repository.dart';
+import 'package:quick_drink_app/domain/models/menu_position_model.dart';
+
+import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
 
 part 'drinks_page_state.dart';
 
 class DrinksPageCubit extends Cubit<DrinksPageState> {
-  DrinksPageCubit({required this.drinksRepository})
+  DrinksPageCubit({required this.menuRepository})
       : super(
           DrinksPageState(
             errorMessage: '',
@@ -15,11 +16,11 @@ class DrinksPageCubit extends Cubit<DrinksPageState> {
           ),
         );
 
-  final DrinksRepository drinksRepository;
+  final MenuRepository menuRepository;
   StreamSubscription? streamSubscription;
 
   Future<void> testList() async {
-    final results = await drinksRepository.getExampleDrinks();
+    final results = await menuRepository.getExamplePositions(type: "drink");
     try {
       emit(
         DrinksPageState(
@@ -39,20 +40,21 @@ class DrinksPageCubit extends Cubit<DrinksPageState> {
 
   Future<void> addDrinkToPreOrders({
     required int tableNumber,
-    required String drinkName,
+    required String name,
     required int quantity,
     required double price,
   }) async {
-    drinksRepository.addDrinkToPreOrders(
+    menuRepository.addPositionToPreOrder(
         tableNumber: tableNumber,
-        drinkName: drinkName,
+        name: name,
         quantity: quantity,
-        price: price);
+        price: price,
+        type: "drink");
   }
 
   Future<void> addedDrinksData() async {
     streamSubscription =
-        drinksRepository.getAddedDrinksData().listen((results) {
+        menuRepository.getAddedData(type: "drink").listen((results) {
       emit(
         DrinksPageState(
           errorMessage: '',
