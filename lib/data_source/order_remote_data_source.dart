@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class PreOrderRemoteDataSource {
+class OrderRemotDataSource {
   Stream<QuerySnapshot<Map<String, dynamic>>> getPreOrderData() {
     return FirebaseFirestore.instance
         .collection("PreOrder")
@@ -8,23 +8,31 @@ class PreOrderRemoteDataSource {
         .snapshots();
   }
 
-  Future<void> addOrder({required String type,
+  Stream<QuerySnapshot<Map<String, dynamic>>> getOrder() {
+    return FirebaseFirestore.instance.collection("Orders").snapshots();
+  }
+
+  Future<void> addOrder({
+    required String type,
     required int tableNumber,
     required String name,
     required int quantity,
-    required double orderPrice,}) async {
+    required double price,
+  }) async {
     FirebaseFirestore.instance.collection("Orders").add({
-      "tableNumber" : tableNumber,
-      "name" : name,
-      "quanity" : quantity,
-      "orderPrice" :orderPrice,
-      
-
-
+      "tableNumber": tableNumber,
+      "name": name,
+      "quantity": quantity,
+      "price": price,
+      "type": type,
     });
   }
 
   Future<void> removePreOrder({required String id}) async {
     return FirebaseFirestore.instance.collection("PreOrder").doc(id).delete();
+  }
+
+  Future<void> removeOrder({required String id}) async {
+    return FirebaseFirestore.instance.collection("Orders").doc(id).delete();
   }
 }

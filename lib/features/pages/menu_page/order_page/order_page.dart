@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quick_drink_app/data_source/pre_order_remote_data_source.dart';
+import 'package:quick_drink_app/data_source/order_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/order_model.dart';
-import 'package:quick_drink_app/domain/repositories/pre_order_repository.dart';
+
+import 'package:quick_drink_app/domain/repositories/order_repository.dart';
 import 'package:quick_drink_app/features/pages/menu_page/order_page/cubit/order_page_cubit.dart';
 
 class OrderPage extends StatefulWidget {
@@ -14,80 +17,123 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  var index = 0;
   @override
   Widget build(BuildContext context) {
-    var value = 0.0;
     return BlocProvider(
       create: (context) => OrderPageCubit(
-          preOrdersRepository: PreOrdersRepository(
-              preOrderRemoteDataSource: PreOrderRemoteDataSource())),
+          orderRepository:
+              OrderRepository(orderRemoteDataSource: OrderRemotDataSource())),
       child: Scaffold(
           appBar: AppBar(
             title: Text("Order table ${widget.tableNumber}"),
           ),
           body: BlocConsumer<OrderPageCubit, OrderPageState>(
             listener: (context, state) {
-              if (state.errorMessage.isNotEmpty)
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              if (state.errorMessage.isNotEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.errorMessage.toString())));
+              }
             },
             builder: (context, state) {
-              context
-                  .read<OrderPageCubit>()
-                  .getPreOrder(tableNumber: widget.tableNumber);
-
               return Column(
                 children: [
-                  Expanded(
-                    child: ListView(
-                      children: [
-                        for (final order in state.orders) ...[
-                          Dismissible(
-                            key: ValueKey(order.id),
-                            onDismissed: (_) {
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              index = 0;
                               context
                                   .read<OrderPageCubit>()
-                                  .removePreOrder(id: order.id);
-                            },
-                            child: OrderWidget(
-                              order: order,
-                            ),
+                                  .getPreOrder(tableNumber: widget.tableNumber);
+                            });
+                          },
+                          child: Text("Order")),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              index = 1;
+                              context
+                                  .read<OrderPageCubit>()
+                                  .getOrder(tableNumber: widget.tableNumber);
+                            });
+                          },
+                          child: Text("Already ordered"))
+                    ],
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            children: [
+                              for (final order in state.orders) ...[
+                                if (index == 0) ...[
+                                  Dismissible(
+                                    key: ValueKey(order.id),
+                                    onDismissed: (_) {
+                                      context
+                                          .read<OrderPageCubit>()
+                                          .removePreOrder(id: order.id);
+                                    },
+                                    child: OrderWidget(
+                                      order: order,
+                                    ),
+                                  ),
+                                ] else ...[
+                                  OrderWidget(order: order)
+                                ]
+                              ]
+                            ],
                           ),
-                        ]
+                        ),
+                        Container(
+                          height: MediaQuery.of(context).size.height / 12,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 2, color: Colors.black)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                onPressed: state.orders.isEmpty
+                                    ? null
+                                    : () {
+                                        for (final order in state.orders) {
+                                          if (index == 0) {
+                                            context
+                                                .read<OrderPageCubit>()
+                                                .addOrder(
+                                                    name: order.name,
+                                                    price: order.price,
+                                                    type: order.type,
+                                                    tableNumber:
+                                                        order.tableNumber,
+                                                    quantity: order.quantity);
+
+                                            context
+                                                .read<OrderPageCubit>()
+                                                .removePreOrder(id: order.id);
+                                          } else {
+                                            context
+                                                .read<OrderPageCubit>()
+                                                .removeOrder(id: order.id);
+                                          }
+                                        }
+                                      },
+                                child:
+                                    index == 0 ? Text("Order") : Text("Finish"),
+                              ),
+                              Text("Sum: ${state.orderValue} ")
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height / 12,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: Colors.black)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: state.orders.isEmpty
-                              ? null
-                              : () {
-                                  for (final order in state.orders) {
-                                    context.read<OrderPageCubit>().addOrder(
-                                        name: order.name,
-                                        orderPrice: order.orderPrice,
-                                        type: order.type,
-                                        tableNumber: order.tableNumber,
-                                        quantity: order.quantity);
-
-                                    context
-                                        .read<OrderPageCubit>()
-                                        .removePreOrder(id: order.id);
-                                  }
-                                },
-                          child: Text("Order"),
-                        ),
-                        Text("Sum: ${state.orderValue} ")
-                      ],
-                    ),
-                  )
                 ],
               );
             },
