@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/data_source/order_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/order_model.dart';
 import 'package:quick_drink_app/domain/repositories/order_repository.dart';
-import 'package:quick_drink_app/features/pages/menu_page/order_page/cubit/order_page_cubit.dart';
+import 'package:quick_drink_app/features/pages/order_page/cubit/order_page_cubit.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key, required this.tableNumber});
@@ -130,12 +130,21 @@ class _OrderPageState extends State<OrderPage> {
                                     ? null
                                     : () {
                                         for (final order in state.orders) {
+                                          print(order.type);
                                           if (index == 0) {
                                             context
                                                 .read<OrderPageCubit>()
                                                 .addOrder(
                                                     name: order.name,
                                                     price: order.price,
+                                                    type: order.type,
+                                                    tableNumber:
+                                                        order.tableNumber,
+                                                    quantity: order.quantity);
+                                            context
+                                                .read<OrderPageCubit>()
+                                                .addOrderToDo(
+                                                    name: order.name,
                                                     type: order.type,
                                                     tableNumber:
                                                         order.tableNumber,

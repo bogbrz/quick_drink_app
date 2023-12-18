@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-
-import 'package:quick_drink_app/features/pages/menu_page/menu_page/menu_page.dart';
-import 'package:quick_drink_app/features/pages/menu_page/order_page/order_page.dart';
+import 'package:quick_drink_app/features/pages/menu_page/menu_page.dart';
+import 'package:quick_drink_app/features/pages/order_page/order_page.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({

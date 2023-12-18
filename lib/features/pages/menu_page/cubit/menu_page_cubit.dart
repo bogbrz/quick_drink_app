@@ -64,13 +64,13 @@ class MenuPageCubit extends Cubit<MenuPageState> {
     required String name,
     required int quantity,
     required double price,
-  }) async {
+    required String type  }) async {
     menuRepository.addPositionToPreOrder(
         tableNumber: tableNumber,
         name: name,
         quantity: quantity,
         price: price,
-        type: "dish");
+        type: type);
   }
 
   @override

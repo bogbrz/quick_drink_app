@@ -4,7 +4,7 @@ import 'package:quick_drink_app/data_source/table_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/table_model.dart';
 import 'package:quick_drink_app/domain/repositories/tables_repository.dart';
 import 'package:quick_drink_app/features/pages/tables_page/cubit/tables_page_cubit.dart';
-import 'package:quick_drink_app/menu_page.dart';
+import 'package:quick_drink_app/root_page.dart';
 
 class TablePage extends StatelessWidget {
   TablePage({

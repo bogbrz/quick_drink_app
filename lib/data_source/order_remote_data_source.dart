@@ -12,6 +12,10 @@ class OrderRemotDataSource {
     return FirebaseFirestore.instance.collection("Orders").snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> getToDoOrdersData() {
+    return FirebaseFirestore.instance.collection("ToDo").snapshots();
+  }
+
   Future<void> addOrder({
     required String type,
     required int tableNumber,
@@ -28,8 +32,27 @@ class OrderRemotDataSource {
     });
   }
 
+  Future<void> addOrderToDo({
+    required String type,
+    required int tableNumber,
+    required String name,
+    required int quantity,
+  }) async {
+    FirebaseFirestore.instance.collection("ToDo").add({
+      type: type,
+      "name": name,
+      "type": type,
+      "tableNumber": tableNumber,
+      "quantity": quantity,
+    });
+  }
+
   Future<void> removePreOrder({required String id}) async {
     return FirebaseFirestore.instance.collection("PreOrder").doc(id).delete();
+  }
+
+  Future<void> removeToDoOrder({required String id}) async {
+    return FirebaseFirestore.instance.collection("ToDo").doc(id).delete();
   }
 
   Future<void> removeOrder({required String id}) async {

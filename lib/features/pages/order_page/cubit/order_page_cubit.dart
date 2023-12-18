@@ -73,10 +73,28 @@ class OrderPageCubit extends Cubit<OrderPageState> {
       quantity: quantity,
     );
   }
+   Future<void> addOrderToDo({
+    required String type,
+    required int tableNumber,
+    required String name,
+    required int quantity,
+ 
+  }) async {
+    orderRepository.addOrderToDo(
+      type: type,
+      name: name,
+      
+      tableNumber: tableNumber,
+      quantity: quantity,
+    );
+  }
+
+  
 
   Future<void> removePreOrder({required String id}) async {
     orderRepository.removePreOrder(id: id);
   }
+
   Future<void> removeOrder({required String id}) async {
     orderRepository.removeOrder(id: id);
   }

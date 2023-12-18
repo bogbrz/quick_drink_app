@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_drink_app/firebase_options.dart';
-import 'package:quick_drink_app/bar_page.dart';
+import 'package:quick_drink_app/features/pages/bar_page/bar_page.dart';
 import 'package:quick_drink_app/features/pages/tables_page/tables_page.dart';
-import 'package:quick_drink_app/kitchen_page.dart';
+import 'package:quick_drink_app/features/pages/kitchen_page/kitchen_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

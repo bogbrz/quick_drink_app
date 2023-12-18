@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
 import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
-import 'package:quick_drink_app/features/pages/menu_page/add_page/cubit/add_page_cubit.dart';
+import 'package:quick_drink_app/features/pages/add_page/cubit/add_page_cubit.dart';
+
 
 class AddPage extends StatefulWidget {
-  AddPage({
+  const AddPage({
     super.key,
   });
 

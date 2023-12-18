@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
 import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
-import 'package:quick_drink_app/features/pages/menu_page/add_page/add_page.dart';
+import 'package:quick_drink_app/features/pages/add_page/add_page.dart';
 
-import 'package:quick_drink_app/features/pages/menu_page/menu_page/cubit/menu_page_cubit.dart';
+import 'package:quick_drink_app/features/pages/menu_page/cubit/menu_page_cubit.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({
@@ -118,7 +118,7 @@ class _MenuPageState extends State<MenuPage> {
                           positiontype = "dish";
                           context
                               .read<MenuPageCubit>()
-                              .testList(type: positiontype);
+                              .addedDishesData(type: positiontype);
 
                           print(positiontype);
                         });
@@ -126,7 +126,9 @@ class _MenuPageState extends State<MenuPage> {
                       child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: Colors.deepOrange,
+                              color: positiontype == "dish"
+                                  ? Colors.deepOrange
+                                  : Colors.orangeAccent,
                               border: Border(
                                   bottom: BorderSide(width: 2),
                                   right: BorderSide(width: 1))),
@@ -143,13 +145,15 @@ class _MenuPageState extends State<MenuPage> {
                           positiontype = "drink";
                           context
                               .read<MenuPageCubit>()
-                              .testList(type: positiontype);
+                              .addedDishesData(type: positiontype);
                           print(positiontype);
                         });
                       },
                       child: Container(
                           decoration: BoxDecoration(
-                              color: Colors.orangeAccent,
+                              color: positiontype == "drink"
+                                  ? Colors.deepOrange
+                                  : Colors.orangeAccent,
                               border: Border(
                                   bottom: BorderSide(width: 2),
                                   left: BorderSide(width: 1))),
@@ -164,26 +168,14 @@ class _MenuPageState extends State<MenuPage> {
                   ],
                 ),
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                  child: ListView(
                     children: [
-                      Expanded(
-                        child: ListView(
-                          children: [
-                            for (final dish in state.menuList) ...[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  DishesListWidget(
-                                    dish: dish,
-                                    tableNumber: widget.tableNumber,
-                                  ),
-                                ],
-                              ),
-                            ]
-                          ],
+                      for (final dish in state.menuList) ...[
+                        DishesListWidget(
+                          dish: dish,
+                          tableNumber: widget.tableNumber,
                         ),
-                      ),
+                      ]
                     ],
                   ),
                 ),
@@ -212,21 +204,22 @@ class DishesListWidget extends StatefulWidget {
 
 class _DishesListWidgetState extends State<DishesListWidget> {
   var counter = 0;
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width * 0.6,
-          height: MediaQuery.of(context).size.height * 0.3,
-          margin: EdgeInsets.all(25),
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 2,
-              color: Colors.black,
+        Expanded(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.6,
+            height: MediaQuery.of(context).size.height * 0.3,
+            margin: EdgeInsets.all(25),
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 2,
+                color: Colors.black,
+              ),
             ),
-          ),
-          child: Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -235,11 +228,10 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                          child: Text(
+                      Text(
                         widget.dish.name,
                         style: Theme.of(context).textTheme.titleMedium,
-                      )),
+                      ),
                       Text(
                         "Price: ${widget.dish.price.toString()}",
                         style: Theme.of(context).textTheme.titleMedium,
@@ -289,40 +281,11 @@ class _DishesListWidgetState extends State<DishesListWidget> {
             ),
           ),
         ),
-        Column(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2,
-                  color: Colors.black,
-                ),
-              ),
-              width: MediaQuery.of(context).size.width * 0.2,
-              height: MediaQuery.of(context).size.height * 0.15 - 8,
-              child: Text(
-                "$counter",
-                style: TextStyle(fontSize: 45),
-              ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            InkWell(
-              onTap: counter == 0
-                  ? null
-                  : () {
-                      context.read<MenuPageCubit>().addDishToPreOrders(
-                          tableNumber: widget.tableNumber,
-                          name: widget.dish.name,
-                          price: widget.dish.price,
-                          quantity: counter);
-                      setState(() {
-                        counter = 0;
-                      });
-                    },
-              child: Container(
+        Padding(
+          padding: const EdgeInsets.only(right: 24),
+          child: Column(
+            children: [
+              Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -332,22 +295,55 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                 ),
                 width: MediaQuery.of(context).size.width * 0.2,
                 height: MediaQuery.of(context).size.height * 0.15 - 8,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(
-                        "Add",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                    ),
-                    Icon(Icons.add_box_outlined)
-                  ],
+                child: Text(
+                  "$counter",
+                  style: TextStyle(fontSize: 45),
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 16,
+              ),
+              InkWell(
+                onTap: counter == 0
+                    ? null
+                    : () {
+                        context.read<MenuPageCubit>().addDishToPreOrders(
+                            tableNumber: widget.tableNumber,
+                            name: widget.dish.name,
+                            price: widget.dish.price,
+                            quantity: counter,
+                            type: widget.dish.type);
+                        setState(() {
+                          counter = 0;
+                        });
+                      },
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2,
+                      color: Colors.black,
+                    ),
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  height: MediaQuery.of(context).size.height * 0.15 - 8,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          "Add",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ),
+                      Icon(Icons.add_box_outlined)
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
