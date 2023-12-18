@@ -37,7 +37,7 @@ class _RootPageState extends State<RootPage> {
           });
         },
         currentIndex: pageIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(
               Icons.food_bank,

@@ -10,7 +10,7 @@ class MenuRemoteDataSource {
     if (listDynamic == null) {
       return null;
     }
-    print(respone);
+
 
     return listDynamic.map((e) => e as Map<String, dynamic>).toList();
   }

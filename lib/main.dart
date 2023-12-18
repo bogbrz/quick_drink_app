@@ -48,9 +48,9 @@ class _RootPageState extends State<RootPage> {
           return TablePage();
         }
         if (pageIndex == 1) {
-          return BarPage();
+          return const BarPage();
         } else {
-          return KitchenPage();
+          return const KitchenPage();
         }
       }),
       bottomNavigationBar: BottomNavigationBar(
@@ -60,18 +60,18 @@ class _RootPageState extends State<RootPage> {
           });
         },
         currentIndex: pageIndex,
-        items: [
-          BottomNavigationBarItem(
+        items: const [
+           BottomNavigationBarItem(
             icon: Icon(
               Icons.table_bar,
             ),
             label: "Tables",
           ),
-          BottomNavigationBarItem(
+           BottomNavigationBarItem(
             icon: Icon(Icons.local_drink),
             label: "Bar",
           ),
-          BottomNavigationBarItem(
+           BottomNavigationBarItem(
             icon: Icon(Icons.food_bank),
             label: "Kitchen",
           ),

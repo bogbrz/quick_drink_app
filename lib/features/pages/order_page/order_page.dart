@@ -24,7 +24,7 @@ class _OrderPageState extends State<OrderPage> {
         ..getPreOrder(tableNumber: widget.tableNumber),
       child: Scaffold(
           appBar: AppBar(
-            shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
+            shape: const Border(bottom: BorderSide(color: Colors.black, width: 2)),
             backgroundColor: Colors.orange,
             title: Text("Order table ${widget.tableNumber}",
                 style: Theme.of(context).textTheme.headlineLarge),
@@ -53,7 +53,7 @@ class _OrderPageState extends State<OrderPage> {
                         },
                         child: Container(
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: Colors.orangeAccent,
                                 border: Border(
                                     bottom: BorderSide(width: 2),
@@ -75,7 +75,7 @@ class _OrderPageState extends State<OrderPage> {
                           });
                         },
                         child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: Colors.deepOrange,
                                 border: Border(
                                     bottom: BorderSide(width: 2),
@@ -130,7 +130,7 @@ class _OrderPageState extends State<OrderPage> {
                                     ? null
                                     : () {
                                         for (final order in state.orders) {
-                                          print(order.type);
+                                        
                                           if (index == 0) {
                                             context
                                                 .read<OrderPageCubit>()
@@ -161,8 +161,8 @@ class _OrderPageState extends State<OrderPage> {
                                         }
                                       },
                                 child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    margin: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(10),
+                                    margin: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         color: Colors.deepOrange,
                                         border: Border.all(width: 2),
@@ -221,7 +221,7 @@ class OrderWidget extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        Text(
+                        const Text(
                           "Name",
                         ),
                         Text(order.name),
@@ -229,19 +229,19 @@ class OrderWidget extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        Text("Quantity"),
+                        const Text("Quantity"),
                         Text(order.quantity.toString()),
                       ],
                     ),
                     Column(
                       children: [
-                        Text("Price"),
+                        const Text("Price"),
                         Text(order.price.toString()),
                       ],
                     ),
                     Column(
                       children: [
-                        Text("Sum up"),
+                        const Text("Sum up"),
                         Text((order.orderPrice).toString())
                       ],
                     )

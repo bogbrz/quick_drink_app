@@ -7,12 +7,12 @@ class KitchenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Kitchen",
         ),
         centerTitle: true,
       ),
-      body: ListView(children: []),
+      body: ListView(children: const []),
     );
     
   }

@@ -59,12 +59,12 @@ class _AddPageState extends State<AddPage> {
 
                           Navigator.of(context).pop();
                         },
-                  child: Icon(
+                  child: const Icon(
                     Icons.check,
                     size: 45,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 )
               ],
@@ -75,7 +75,7 @@ class _AddPageState extends State<AddPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Row(
@@ -84,7 +84,7 @@ class _AddPageState extends State<AddPage> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 2,
                         child: TextField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               label: Text(
                                 "Name",
@@ -92,14 +92,14 @@ class _AddPageState extends State<AddPage> {
                           controller: name,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 5,
                         child: TextField(
                           keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               label: Text("Price")),
                           controller: price,
@@ -107,7 +107,7 @@ class _AddPageState extends State<AddPage> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -118,13 +118,13 @@ class _AddPageState extends State<AddPage> {
                         child: TextField(
                           minLines: 1,
                           maxLines: 10,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               label: Text("Ingredients")),
                           controller: ingredients,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       InkWell(
@@ -132,7 +132,7 @@ class _AddPageState extends State<AddPage> {
                           mealType == 0 ? mealType = 1 : mealType = 0;
                           setState(() {});
 
-                          print(mealType);
+                       
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -149,7 +149,7 @@ class _AddPageState extends State<AddPage> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                 ],

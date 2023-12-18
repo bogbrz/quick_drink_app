@@ -24,7 +24,7 @@ class TablePage extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 shape:
-                    Border(bottom: BorderSide(color: Colors.black, width: 2)),
+                    const Border(bottom: BorderSide(color: Colors.black, width: 2)),
                 backgroundColor: Colors.orange,
                 title: Text("Tables Page",
                     style: Theme.of(context).textTheme.headlineLarge),
@@ -35,7 +35,7 @@ class TablePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                           color: Colors.orangeAccent,
                           border: Border.all(width: 2, color: Colors.black)),
@@ -47,7 +47,7 @@ class TablePage extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 12,
                                   ),
                                   SizedBox(
@@ -57,14 +57,14 @@ class TablePage extends StatelessWidget {
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleLarge)),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width / 7,
                                     child: TextField(
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                           border: OutlineInputBorder()),
                                       controller: tableNumber,
                                       keyboardType: TextInputType.number,
@@ -72,7 +72,7 @@ class TablePage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                             ],
@@ -84,18 +84,17 @@ class TablePage extends StatelessWidget {
                                     );
                                 tableNumber.clear();
                               },
-                              icon: Container(
-                                child: Icon(
+                              icon:  const Icon(
                                   Icons.add_box,
                                   size: 100,
                                   color: Colors.white,
                                 ),
-                              ))
+                              )
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Expanded(
@@ -114,7 +113,7 @@ class TablePage extends StatelessWidget {
                                   },
                                   child: TableWidget(table: table),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
                               ]
@@ -158,7 +157,7 @@ class TableWidget extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: Color.fromARGB(255, 221, 128, 23),
+              color: const Color.fromARGB(255, 221, 128, 23),
               border: Border.all(
                 width: 2,
                 color: Colors.black,

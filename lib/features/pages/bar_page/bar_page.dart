@@ -15,8 +15,8 @@ class BarPage extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
                 border: Border.all(width: 2, color: Colors.black)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 "Create your own menu",
               ),

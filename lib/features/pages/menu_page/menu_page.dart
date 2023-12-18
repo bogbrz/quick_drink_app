@@ -33,18 +33,18 @@ class _MenuPageState extends State<MenuPage> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
+              shape: const Border(bottom: BorderSide(color: Colors.black, width: 2)),
               backgroundColor: Colors.orange,
               actions: [
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => AddPage(),
+                        builder: (context) => const AddPage(),
                       ),
                     );
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     size: 45,
                   ),
@@ -66,12 +66,12 @@ class _MenuPageState extends State<MenuPage> {
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
 
-                          print(positiontype);
+                    
                         });
                       },
                       child: Container(
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: Colors.orangeAccent,
                               border: Border(
                                   bottom: BorderSide(width: 2),
@@ -91,11 +91,11 @@ class _MenuPageState extends State<MenuPage> {
                               .read<MenuPageCubit>()
                               .testList(type: positiontype);
 
-                          print(positiontype);
+                    
                         });
                       },
                       child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: Colors.deepOrange,
                               border: Border(
                                   bottom: BorderSide(width: 2),
@@ -120,7 +120,7 @@ class _MenuPageState extends State<MenuPage> {
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
 
-                          print(positiontype);
+                       
                         });
                       },
                       child: Container(
@@ -129,7 +129,7 @@ class _MenuPageState extends State<MenuPage> {
                               color: positiontype == "dish"
                                   ? Colors.deepOrange
                                   : Colors.orangeAccent,
-                              border: Border(
+                              border: const Border(
                                   bottom: BorderSide(width: 2),
                                   right: BorderSide(width: 1))),
                           width: MediaQuery.of(context).size.width / 2,
@@ -146,7 +146,7 @@ class _MenuPageState extends State<MenuPage> {
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
-                          print(positiontype);
+                       
                         });
                       },
                       child: Container(
@@ -154,7 +154,7 @@ class _MenuPageState extends State<MenuPage> {
                               color: positiontype == "drink"
                                   ? Colors.deepOrange
                                   : Colors.orangeAccent,
-                              border: Border(
+                              border: const Border(
                                   bottom: BorderSide(width: 2),
                                   left: BorderSide(width: 1))),
                           alignment: Alignment.center,
@@ -213,7 +213,7 @@ class _DishesListWidgetState extends State<DishesListWidget> {
           child: Container(
             width: MediaQuery.of(context).size.width * 0.6,
             height: MediaQuery.of(context).size.height * 0.3,
-            margin: EdgeInsets.all(25),
+            margin: const EdgeInsets.all(25),
             decoration: BoxDecoration(
               border: Border.all(
                 width: 2,
@@ -241,7 +241,7 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                 ),
                 Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
                     Expanded(
@@ -262,7 +262,7 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                           counter++;
                         });
                       },
-                      icon: Icon(Icons.add_box_rounded),
+                      icon: const Icon(Icons.add_box_rounded),
                     ),
                     IconButton(
                         onPressed: counter == 0
@@ -274,7 +274,7 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                               },
                         iconSize:
                             (MediaQuery.of(context).size.width * 0.25) / 3,
-                        icon: Icon(Icons.remove_circle)),
+                        icon: const Icon(Icons.remove_circle)),
                   ],
                 ),
               ],
@@ -297,10 +297,10 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                 height: MediaQuery.of(context).size.height * 0.15 - 8,
                 child: Text(
                   "$counter",
-                  style: TextStyle(fontSize: 45),
+                  style: const TextStyle(fontSize: 45),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               InkWell(
@@ -337,7 +337,7 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
-                      Icon(Icons.add_box_outlined)
+                      const Icon(Icons.add_box_outlined)
                     ],
                   ),
                 ),
