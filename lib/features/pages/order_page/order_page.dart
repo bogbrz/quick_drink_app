@@ -24,7 +24,8 @@ class _OrderPageState extends State<OrderPage> {
         ..getPreOrder(tableNumber: widget.tableNumber),
       child: Scaffold(
           appBar: AppBar(
-            shape: const Border(bottom: BorderSide(color: Colors.black, width: 2)),
+            shape:
+                const Border(bottom: BorderSide(color: Colors.black, width: 2)),
             backgroundColor: Colors.orange,
             title: Text("Order table ${widget.tableNumber}",
                 style: Theme.of(context).textTheme.headlineLarge),
@@ -53,8 +54,10 @@ class _OrderPageState extends State<OrderPage> {
                         },
                         child: Container(
                             alignment: Alignment.center,
-                            decoration: const BoxDecoration(
-                                color: Colors.orangeAccent,
+                            decoration: BoxDecoration(
+                                color: index == 0
+                                    ? Colors.deepOrange
+                                    : Colors.orangeAccent,
                                 border: Border(
                                     bottom: BorderSide(width: 2),
                                     right: BorderSide(width: 1))),
@@ -75,8 +78,10 @@ class _OrderPageState extends State<OrderPage> {
                           });
                         },
                         child: Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.deepOrange,
+                            decoration: BoxDecoration(
+                                color: index == 1
+                                    ? Colors.deepOrange
+                                    : Colors.orangeAccent,
                                 border: Border(
                                     bottom: BorderSide(width: 2),
                                     left: BorderSide(width: 1))),
@@ -130,7 +135,6 @@ class _OrderPageState extends State<OrderPage> {
                                     ? null
                                     : () {
                                         for (final order in state.orders) {
-                                        
                                           if (index == 0) {
                                             context
                                                 .read<OrderPageCubit>()

@@ -49,7 +49,6 @@ class OrderRepository {
             return ToDoModel(
               name: doc["name"],
               quantity: doc["quantity"],
-         
               tableNumber: doc["tableNumber"],
               type: doc["type"],
               id: doc.id,
@@ -60,17 +59,15 @@ class OrderRepository {
     });
   }
 
-   Future<void> addOrderToDo({
+  Future<void> addOrderToDo({
     required String type,
     required int tableNumber,
     required String name,
     required int quantity,
- 
   }) async {
     orderRemoteDataSource.addOrderToDo(
       type: type,
       name: name,
-      
       tableNumber: tableNumber,
       quantity: quantity,
     );
@@ -97,7 +94,7 @@ class OrderRepository {
   Future<void> removeOrder({required String id}) async {
     orderRemoteDataSource.removeOrder(id: id);
   }
-  
+
   Future<void> removeToDoOrder({required String id}) async {
     orderRemoteDataSource.removeToDoOrder(id: id);
   }

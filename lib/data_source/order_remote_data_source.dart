@@ -39,7 +39,6 @@ class OrderRemotDataSource {
     required int quantity,
   }) async {
     FirebaseFirestore.instance.collection("ToDo").add({
-      type: type,
       "name": name,
       "type": type,
       "tableNumber": tableNumber,
