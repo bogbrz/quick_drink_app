@@ -1,7 +1,8 @@
-class TableModel {
-  final int tableNumber;
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'table_model.freezed.dart';
 
-  final String id;
-
-  TableModel({required this.tableNumber, required this.id});
+@freezed
+class TableModel with _$TableModel {
+  factory TableModel({required int tableNumber, required String id}) =
+      _TableModel;
 }

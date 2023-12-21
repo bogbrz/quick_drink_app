@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
 
 import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
 
 part 'menu_page_state.dart';
+part 'menu_page_cubit.freezed.dart';
 
 class MenuPageCubit extends Cubit<MenuPageState> {
   MenuPageCubit({required this.menuRepository})

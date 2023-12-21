@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:quick_drink_app/domain/models/order_model.dart';
 
 import 'package:quick_drink_app/domain/repositories/order_repository.dart';
 
 part 'order_page_state.dart';
+part 'order_page_cubit.freezed.dart';
 
 class OrderPageCubit extends Cubit<OrderPageState> {
   OrderPageCubit({required this.orderRepository})
