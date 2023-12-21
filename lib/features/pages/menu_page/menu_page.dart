@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quick_drink_app/data_source/example_menu_remote_data_source.dart';
 import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
 import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
@@ -26,14 +28,16 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MenuPageCubit(
-          menuRepository:
-              MenuRepository(menuRemoteDataSource: MenuRemoteDataSource()))
-        ..addedDishesData(type: positiontype),
+        menuRepository: MenuRepository(
+            menuRemoteDataSource: MenuRemoteDataSource(),
+            exampleRetrofitDataSource: ExampleRetrofitDataSource(Dio())),
+      )..addedDishesData(type: positiontype),
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              shape: const Border(bottom: BorderSide(color: Colors.black, width: 2)),
+              shape: const Border(
+                  bottom: BorderSide(color: Colors.black, width: 2)),
               backgroundColor: Colors.orange,
               actions: [
                 InkWell(
@@ -65,8 +69,6 @@ class _MenuPageState extends State<MenuPage> {
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
-
-                    
                         });
                       },
                       child: Container(
@@ -90,8 +92,6 @@ class _MenuPageState extends State<MenuPage> {
                           context
                               .read<MenuPageCubit>()
                               .testList(type: positiontype);
-
-                    
                         });
                       },
                       child: Container(
@@ -119,8 +119,6 @@ class _MenuPageState extends State<MenuPage> {
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
-
-                       
                         });
                       },
                       child: Container(
@@ -146,7 +144,6 @@ class _MenuPageState extends State<MenuPage> {
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
-                       
                         });
                       },
                       child: Container(

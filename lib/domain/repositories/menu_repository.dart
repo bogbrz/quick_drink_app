@@ -1,22 +1,21 @@
+import 'package:quick_drink_app/data_source/example_menu_remote_data_source.dart';
 import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
 
 class MenuRepository {
   final MenuRemoteDataSource menuRemoteDataSource;
+  final ExampleRetrofitDataSource exampleRetrofitDataSource;
 
-  MenuRepository({required this.menuRemoteDataSource});
+  MenuRepository(
+      {required this.menuRemoteDataSource,
+      required this.exampleRetrofitDataSource});
 
   Future<List<MenuPositionModel>> getExamplePositions(
       {required String type}) async {
-    final json = await menuRemoteDataSource.getExamplePositions();
-    if (json == null) {
-      return [];
-    }
+    final json = await exampleRetrofitDataSource.getExamplePositions();
+   
 
-    return json
-        .map((item) => MenuPositionModel.fromJson(item))
-        .where((element) => element.type == type)
-        .toList();
+    return json;
   }
 
   Future<void> addPosition(
