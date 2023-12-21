@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/data_source/table_remote_data_source.dart';
+import 'package:quick_drink_app/domain/models/table_model.dart';
 import 'package:quick_drink_app/domain/repositories/tables_repository.dart';
 import 'package:quick_drink_app/features/pages/tables_page/cubit/tables_page_cubit.dart';
-import 'package:quick_drink_app/menu_page.dart';
+import 'package:quick_drink_app/root_page.dart';
 
 class TablePage extends StatelessWidget {
   TablePage({
@@ -22,6 +23,9 @@ class TablePage extends StatelessWidget {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
+                shape:
+                    const Border(bottom: BorderSide(color: Colors.black, width: 2)),
+                backgroundColor: Colors.orange,
                 title: Text("Tables Page",
                     style: Theme.of(context).textTheme.headlineLarge),
                 centerTitle: true,
@@ -31,8 +35,9 @@ class TablePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
+                          color: Colors.orangeAccent,
                           border: Border.all(width: 2, color: Colors.black)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -42,18 +47,24 @@ class TablePage extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
                                   SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 2,
+                                      width: MediaQuery.of(context).size.width /
+                                          2.5,
                                       child: Text("Number of the table",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleLarge)),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
                                   SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width / 7,
                                     child: TextField(
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                           border: OutlineInputBorder()),
                                       controller: tableNumber,
                                       keyboardType: TextInputType.number,
@@ -61,7 +72,7 @@ class TablePage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                             ],
@@ -73,16 +84,17 @@ class TablePage extends StatelessWidget {
                                     );
                                 tableNumber.clear();
                               },
-                              icon: Icon(
-                                Icons.add_box,
-                                size: 100,
-                                color: Colors.green,
-                              ))
+                              icon:  const Icon(
+                                  Icons.add_box,
+                                  size: 100,
+                                  color: Colors.white,
+                                ),
+                              )
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Expanded(
@@ -99,50 +111,9 @@ class TablePage extends StatelessWidget {
                                         .read<TablesPageCubit>()
                                         .removeTable(docId: table.id);
                                   },
-                                  child: Material(
-                                    shape: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
-                                    clipBehavior: Clip.hardEdge,
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) => MenuPage(
-                                                tableNumber: table.tableNumber),
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                              width: 2,
-                                              color: Colors.black,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(100)),
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2,
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                4,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text("${table.tableNumber}",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayMedium),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  child: TableWidget(table: table),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
                               ]
@@ -157,5 +128,52 @@ class TablePage extends StatelessWidget {
             );
           },
         ));
+  }
+}
+
+class TableWidget extends StatelessWidget {
+  const TableWidget({
+    super.key,
+    required this.table,
+  });
+
+  final TableModel table;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      shape: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(100),
+      ),
+      clipBehavior: Clip.hardEdge,
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => RootPage(tableNumber: table.tableNumber),
+            ),
+          );
+        },
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 221, 128, 23),
+              border: Border.all(
+                width: 2,
+                color: Colors.black,
+              ),
+              borderRadius: BorderRadius.circular(100)),
+          width: MediaQuery.of(context).size.width / 2,
+          height: MediaQuery.of(context).size.height / 4,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("${table.tableNumber}",
+                  style: Theme.of(context).textTheme.displayMedium),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -12,7 +12,7 @@ class TableRemoteDataSource {
     required int tableNumber,
   }) async {
     FirebaseFirestore.instance.collection('tables')
-      ..add({
+      .add({
         "tableNumber": tableNumber,
       });
   }

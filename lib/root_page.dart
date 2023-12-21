@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:quick_drink_app/features/pages/menu_page/dishes_page/dishes_page.dart';
-import 'package:quick_drink_app/features/pages/menu_page/drinks_page/drinks_page.dart';
-import 'package:quick_drink_app/features/pages/menu_page/order_page/order_page.dart';
+import 'package:quick_drink_app/features/pages/menu_page/menu_page.dart';
+import 'package:quick_drink_app/features/pages/order_page/order_page.dart';
 
-class MenuPage extends StatefulWidget {
-  const MenuPage({
+class RootPage extends StatefulWidget {
+  const RootPage({
     super.key,
     required this.tableNumber,
   });
   final int tableNumber;
 
   @override
-  State<MenuPage> createState() => _MenuPageState();
+  State<RootPage> createState() => _RootPageState();
 }
 
 var pageIndex = 0;
 
-class _MenuPageState extends State<MenuPage> {
+class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Builder(builder: (context) {
         if (pageIndex == 0) {
-          return DishesPage(
-            tableNumber: widget.tableNumber,
-          );
-        }
-        if (pageIndex == 1) {
-          return DrinksPage(
+          return MenuPage(
             tableNumber: widget.tableNumber,
           );
         } else {
@@ -43,16 +37,12 @@ class _MenuPageState extends State<MenuPage> {
           });
         },
         currentIndex: pageIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(
               Icons.food_bank,
             ),
-            label: "Dishes",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_drink),
-            label: "Drinks",
+            label: "Menu",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt),

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quick_drink_app/data_source/dishes_remote_data_source.dart';
-import 'package:quick_drink_app/data_source/drinks_remote_data_source.dart';
-import 'package:quick_drink_app/domain/repositories/dishes_repository.dart';
-import 'package:quick_drink_app/domain/repositories/drinks_repository.dart';
-import 'package:quick_drink_app/features/pages/menu_page/add_page/cubit/add_page_cubit.dart';
+import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
+import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
+import 'package:quick_drink_app/features/pages/add_page/cubit/add_page_cubit.dart';
+
 
 class AddPage extends StatefulWidget {
-  AddPage({
+  const AddPage({
     super.key,
   });
 
@@ -16,6 +15,17 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
+  @override
+  void initState() {
+    super.initState();
+    name.addListener(() {
+      setState(() {});
+    });
+    price.addListener(() {
+      setState(() {});
+    });
+  }
+
   final price = TextEditingController();
 
   final name = TextEditingController();
@@ -29,21 +39,43 @@ class _AddPageState extends State<AddPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddPageCubit(
-          drinksRepository: DrinksRepository(
-              drinksRemoteDataSource: DrinksRemoteDataSource()),
-          dishesRepository: DishesRepository(
-              dishesRemoteDataSource: DishesRemoteDataSource())),
+        menuRepository:
+            MenuRepository(menuRemoteDataSource: MenuRemoteDataSource()),
+      ),
       child: BlocBuilder<AddPageCubit, AddPageState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Add position to your menu"),
+              actions: [
+                InkWell(
+                  onTap: name.text.isEmpty
+                      ? null
+                      : () {
+                          context.read<AddPageCubit>().addPosition(
+                              name: name.text,
+                              price: double.parse(price.text) + 0.0,
+                              ingredients: ingredients.text,
+                              type: mealType == 0 ? "dish" : "drink");
+
+                          Navigator.of(context).pop();
+                        },
+                  child: const Icon(
+                    Icons.check,
+                    size: 45,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                )
+              ],
+              title: Text("Add position",
+                  style: Theme.of(context).textTheme.headlineLarge),
             ),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Row(
@@ -52,20 +84,22 @@ class _AddPageState extends State<AddPage> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 2,
                         child: TextField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              label: Text("Name")),
+                              label: Text(
+                                "Name",
+                              )),
                           controller: name,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 5,
                         child: TextField(
                           keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               label: Text("Price")),
                           controller: price,
@@ -73,7 +107,7 @@ class _AddPageState extends State<AddPage> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -84,13 +118,13 @@ class _AddPageState extends State<AddPage> {
                         child: TextField(
                           minLines: 1,
                           maxLines: 10,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               label: Text("Ingredients")),
                           controller: ingredients,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       InkWell(
@@ -98,7 +132,7 @@ class _AddPageState extends State<AddPage> {
                           mealType == 0 ? mealType = 1 : mealType = 0;
                           setState(() {});
 
-                          print(mealType);
+                       
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -115,40 +149,8 @@ class _AddPageState extends State<AddPage> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (mealType == 0) {
-                        context.read<AddPageCubit>().addDish(
-                            name: name.text,
-                            price: double.parse(price.text) + 0.0,
-                            ingredients: ingredients.text,
-                            mealId: mealId);
-                        setState(() {
-                          mealId++;
-                        });
-                        ingredients.clear();
-                        price.clear();
-                        name.clear();
-                      } else {
-                        context.read<AddPageCubit>().addDrink(
-                            name: name.text,
-                            price: double.parse(price.text) + 0.0,
-                            ingredients: ingredients.text,
-                            drinkId: drinkId);
-                        setState(() {
-                          drinkId++;
-                        });
-                        ingredients.clear();
-                        price.clear();
-                        name.clear();
-                      }
-                    },
-                    child: Text(
-                      "Add",
-                    ),
                   ),
                 ],
               ),

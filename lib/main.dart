@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_drink_app/firebase_options.dart';
-import 'package:quick_drink_app/bar_page.dart';
+import 'package:quick_drink_app/features/pages/bar_page/bar_page.dart';
 import 'package:quick_drink_app/features/pages/tables_page/tables_page.dart';
-import 'package:quick_drink_app/kitchen_page.dart';
+import 'package:quick_drink_app/features/pages/kitchen_page/kitchen_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
           useMaterial3: true,
         ),
         home: const RootPage());
@@ -48,9 +48,9 @@ class _RootPageState extends State<RootPage> {
           return TablePage();
         }
         if (pageIndex == 1) {
-          return BarPage();
+          return const BarPage();
         } else {
-          return KitchenPage();
+          return const KitchenPage();
         }
       }),
       bottomNavigationBar: BottomNavigationBar(
@@ -60,18 +60,18 @@ class _RootPageState extends State<RootPage> {
           });
         },
         currentIndex: pageIndex,
-        items: [
-          BottomNavigationBarItem(
+        items: const [
+           BottomNavigationBarItem(
             icon: Icon(
               Icons.table_bar,
             ),
             label: "Tables",
           ),
-          BottomNavigationBarItem(
+           BottomNavigationBarItem(
             icon: Icon(Icons.local_drink),
             label: "Bar",
           ),
-          BottomNavigationBarItem(
+           BottomNavigationBarItem(
             icon: Icon(Icons.food_bank),
             label: "Kitchen",
           ),
