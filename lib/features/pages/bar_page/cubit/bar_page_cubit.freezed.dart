@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$BarPageState {
   String get errorMessage => throw _privateConstructorUsedError;
   List<ToDoModel> get orders => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BarPageStateCopyWith<BarPageState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $BarPageStateCopyWith<$Res> {
           BarPageState value, $Res Function(BarPageState) then) =
       _$BarPageStateCopyWithImpl<$Res, BarPageState>;
   @useResult
-  $Res call({String errorMessage, List<ToDoModel> orders});
+  $Res call({String errorMessage, List<ToDoModel> orders, Status status});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$BarPageStateCopyWithImpl<$Res, $Val extends BarPageState>
   $Res call({
     Object? errorMessage = null,
     Object? orders = null,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       errorMessage: null == errorMessage
@@ -58,6 +60,10 @@ class _$BarPageStateCopyWithImpl<$Res, $Val extends BarPageState>
           ? _value.orders
           : orders // ignore: cast_nullable_to_non_nullable
               as List<ToDoModel>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$BarPageStateImplCopyWith<$Res>
       __$$BarPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String errorMessage, List<ToDoModel> orders});
+  $Res call({String errorMessage, List<ToDoModel> orders, Status status});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$BarPageStateImplCopyWithImpl<$Res>
   $Res call({
     Object? errorMessage = null,
     Object? orders = null,
+    Object? status = null,
   }) {
     return _then(_$BarPageStateImpl(
       errorMessage: null == errorMessage
@@ -96,6 +103,10 @@ class __$$BarPageStateImplCopyWithImpl<$Res>
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
               as List<ToDoModel>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
     ));
   }
 }
@@ -104,7 +115,9 @@ class __$$BarPageStateImplCopyWithImpl<$Res>
 
 class _$BarPageStateImpl implements _BarPageState {
   _$BarPageStateImpl(
-      {required this.errorMessage, required final List<ToDoModel> orders})
+      {required this.errorMessage,
+      required final List<ToDoModel> orders,
+      required this.status})
       : _orders = orders;
 
   @override
@@ -118,8 +131,11 @@ class _$BarPageStateImpl implements _BarPageState {
   }
 
   @override
+  final Status status;
+
+  @override
   String toString() {
-    return 'BarPageState(errorMessage: $errorMessage, orders: $orders)';
+    return 'BarPageState(errorMessage: $errorMessage, orders: $orders, status: $status)';
   }
 
   @override
@@ -129,12 +145,13 @@ class _$BarPageStateImpl implements _BarPageState {
             other is _$BarPageStateImpl &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
-            const DeepCollectionEquality().equals(other._orders, _orders));
+            const DeepCollectionEquality().equals(other._orders, _orders) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, errorMessage, const DeepCollectionEquality().hash(_orders));
+  int get hashCode => Object.hash(runtimeType, errorMessage,
+      const DeepCollectionEquality().hash(_orders), status);
 
   @JsonKey(ignore: true)
   @override
@@ -146,12 +163,15 @@ class _$BarPageStateImpl implements _BarPageState {
 abstract class _BarPageState implements BarPageState {
   factory _BarPageState(
       {required final String errorMessage,
-      required final List<ToDoModel> orders}) = _$BarPageStateImpl;
+      required final List<ToDoModel> orders,
+      required final Status status}) = _$BarPageStateImpl;
 
   @override
   String get errorMessage;
   @override
   List<ToDoModel> get orders;
+  @override
+  Status get status;
   @override
   @JsonKey(ignore: true)
   _$$BarPageStateImplCopyWith<_$BarPageStateImpl> get copyWith =>

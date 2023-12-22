@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/app/injection_container.dart';
+
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
+
 import 'package:quick_drink_app/features/pages/add_page/add_page.dart';
+
 import 'package:quick_drink_app/features/pages/menu_page/cubit/menu_page_cubit.dart';
 
 class MenuPage extends StatefulWidget {
@@ -23,9 +26,8 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>getIt<MenuPageCubit>()..addedDishesData(type: positiontype),
-      
-      
+      create: (context) =>
+          getIt<MenuPageCubit>()..addedDishesData(type: positiontype),
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
           return Scaffold(
@@ -110,6 +112,7 @@ class _MenuPageState extends State<MenuPage> {
                       onTap: () {
                         setState(() {
                           positiontype = "dish";
+
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
@@ -126,9 +129,15 @@ class _MenuPageState extends State<MenuPage> {
                                   right: BorderSide(width: 1))),
                           width: MediaQuery.of(context).size.width / 2,
                           height: MediaQuery.of(context).size.height * 0.05,
-                          child: Text(
-                            "Dishes",
-                            style: Theme.of(context).textTheme.titleMedium,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Dishes",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Icon(Icons.dining_sharp)
+                            ],
                           )),
                     ),
                     InkWell(
@@ -151,9 +160,15 @@ class _MenuPageState extends State<MenuPage> {
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width / 2,
                           height: MediaQuery.of(context).size.height * 0.05,
-                          child: Text(
-                            "Drinks",
-                            style: Theme.of(context).textTheme.titleMedium,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Drinks",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Icon(Icons.local_drink_sharp)
+                            ],
                           )),
                     ),
                   ],

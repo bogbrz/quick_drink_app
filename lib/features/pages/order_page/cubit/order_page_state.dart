@@ -8,5 +8,6 @@ class OrderPageState with _$OrderPageState {
     required String errorMessage,
     required List<OrderModel> orders,
     required double orderValue,
+    required Status status
   }) = _OrderPageState;
 }

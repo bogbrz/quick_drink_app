@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:quick_drink_app/app/core/enums.dart';
 
 import 'package:quick_drink_app/domain/models/order_model.dart';
 
@@ -14,6 +15,7 @@ class OrderPageCubit extends Cubit<OrderPageState> {
   OrderPageCubit({required this.orderRepository})
       : super(
           OrderPageState(
+            status: Status.initial,
             orderValue: 0,
             orders: [],
             errorMessage: "",
@@ -25,12 +27,18 @@ class OrderPageCubit extends Cubit<OrderPageState> {
 
   Future<void> getPreOrder({required int tableNumber}) async {
     double value = 0;
+    emit(OrderPageState(
+        errorMessage: '',
+        orders: [],
+        orderValue: value,
+        status: Status.loading));
     streamSubscription =
         orderRepository.getPreOrder(tableNumber: tableNumber).listen((orders) {
       for (final order in orders) {
         value = value + order.orderPrice;
       }
       emit(OrderPageState(
+        status: Status.success,
         orderValue: value,
         errorMessage: '',
         orders: orders,
@@ -38,18 +46,24 @@ class OrderPageCubit extends Cubit<OrderPageState> {
     })
           ..onError((error) {
             emit(OrderPageState(
-                errorMessage: error.toString(), orders: [], orderValue: 0));
+                errorMessage: error.toString(), orders: [], orderValue: 0, status: Status.error));
           });
   }
 
   Future<void> getOrder({required int tableNumber}) async {
     double value = 0;
+     emit(OrderPageState(
+        errorMessage: '',
+        orders: [],
+        orderValue: value,
+        status: Status.loading));
     streamSubscription =
         orderRepository.getOrder(tableNumber: tableNumber).listen((orders) {
       for (final order in orders) {
         value = value + order.orderPrice;
       }
       emit(OrderPageState(
+        status: Status.success,
         orderValue: value,
         errorMessage: '',
         orders: orders,
@@ -57,6 +71,7 @@ class OrderPageCubit extends Cubit<OrderPageState> {
     })
           ..onError((error) {
             emit(OrderPageState(
+              status: Status.error,
                 errorMessage: error.toString(), orders: [], orderValue: 0));
           });
   }

@@ -7,11 +7,25 @@ import 'package:quick_drink_app/domain/models/table_model.dart';
 import 'package:quick_drink_app/features/pages/tables_page/cubit/tables_page_cubit.dart';
 import 'package:quick_drink_app/root_page.dart';
 
-class TablePage extends StatelessWidget {
+class TablePage extends StatefulWidget {
   TablePage({
     super.key,
   });
+
+  @override
+  State<TablePage> createState() => _TablePageState();
+}
+
+class _TablePageState extends State<TablePage> {
   final tableNumber = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    tableNumber.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,12 +90,15 @@ class TablePage extends StatelessWidget {
                             ],
                           ),
                           IconButton(
-                            onPressed: () {
-                              context.read<TablesPageCubit>().addTable(
-                                    tableNumber: int.parse(tableNumber.text),
-                                  );
-                              tableNumber.clear();
-                            },
+                            onPressed: tableNumber.text.isEmpty
+                                ? null
+                                : () {
+                                    getIt<TablesPageCubit>().addTable(
+                                        tableNumber:
+                                            int.parse(tableNumber.text));
+
+                                    tableNumber.clear();
+                                  },
                             icon: const Icon(
                               Icons.add_box,
                               size: 100,
@@ -105,8 +122,7 @@ class TablePage extends StatelessWidget {
                                 Dismissible(
                                   key: ValueKey(table.id),
                                   onDismissed: (_) {
-                                    context
-                                        .read<TablesPageCubit>()
+                                    getIt<TablesPageCubit>()
                                         .removeTable(docId: table.id);
                                   },
                                   child: TableWidget(table: table),

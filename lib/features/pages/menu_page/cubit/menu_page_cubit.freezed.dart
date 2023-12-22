@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MenuPageState {
   String get errorMessage => throw _privateConstructorUsedError;
   List<MenuPositionModel> get menuList => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MenuPageStateCopyWith<MenuPageState> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $MenuPageStateCopyWith<$Res> {
           MenuPageState value, $Res Function(MenuPageState) then) =
       _$MenuPageStateCopyWithImpl<$Res, MenuPageState>;
   @useResult
-  $Res call({String errorMessage, List<MenuPositionModel> menuList});
+  $Res call(
+      {String errorMessage, List<MenuPositionModel> menuList, Status status});
 }
 
 /// @nodoc
@@ -48,6 +50,7 @@ class _$MenuPageStateCopyWithImpl<$Res, $Val extends MenuPageState>
   $Res call({
     Object? errorMessage = null,
     Object? menuList = null,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       errorMessage: null == errorMessage
@@ -58,6 +61,10 @@ class _$MenuPageStateCopyWithImpl<$Res, $Val extends MenuPageState>
           ? _value.menuList
           : menuList // ignore: cast_nullable_to_non_nullable
               as List<MenuPositionModel>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
     ) as $Val);
   }
 }
@@ -70,7 +77,8 @@ abstract class _$$MenuPageStateImplCopyWith<$Res>
       __$$MenuPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String errorMessage, List<MenuPositionModel> menuList});
+  $Res call(
+      {String errorMessage, List<MenuPositionModel> menuList, Status status});
 }
 
 /// @nodoc
@@ -86,6 +94,7 @@ class __$$MenuPageStateImplCopyWithImpl<$Res>
   $Res call({
     Object? errorMessage = null,
     Object? menuList = null,
+    Object? status = null,
   }) {
     return _then(_$MenuPageStateImpl(
       errorMessage: null == errorMessage
@@ -96,6 +105,10 @@ class __$$MenuPageStateImplCopyWithImpl<$Res>
           ? _value._menuList
           : menuList // ignore: cast_nullable_to_non_nullable
               as List<MenuPositionModel>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
     ));
   }
 }
@@ -105,7 +118,8 @@ class __$$MenuPageStateImplCopyWithImpl<$Res>
 class _$MenuPageStateImpl implements _MenuPageState {
   _$MenuPageStateImpl(
       {required this.errorMessage,
-      required final List<MenuPositionModel> menuList})
+      required final List<MenuPositionModel> menuList,
+      required this.status})
       : _menuList = menuList;
 
   @override
@@ -119,8 +133,11 @@ class _$MenuPageStateImpl implements _MenuPageState {
   }
 
   @override
+  final Status status;
+
+  @override
   String toString() {
-    return 'MenuPageState(errorMessage: $errorMessage, menuList: $menuList)';
+    return 'MenuPageState(errorMessage: $errorMessage, menuList: $menuList, status: $status)';
   }
 
   @override
@@ -130,12 +147,13 @@ class _$MenuPageStateImpl implements _MenuPageState {
             other is _$MenuPageStateImpl &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
-            const DeepCollectionEquality().equals(other._menuList, _menuList));
+            const DeepCollectionEquality().equals(other._menuList, _menuList) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, errorMessage,
-      const DeepCollectionEquality().hash(_menuList));
+      const DeepCollectionEquality().hash(_menuList), status);
 
   @JsonKey(ignore: true)
   @override
@@ -147,12 +165,15 @@ class _$MenuPageStateImpl implements _MenuPageState {
 abstract class _MenuPageState implements MenuPageState {
   factory _MenuPageState(
       {required final String errorMessage,
-      required final List<MenuPositionModel> menuList}) = _$MenuPageStateImpl;
+      required final List<MenuPositionModel> menuList,
+      required final Status status}) = _$MenuPageStateImpl;
 
   @override
   String get errorMessage;
   @override
   List<MenuPositionModel> get menuList;
+  @override
+  Status get status;
   @override
   @JsonKey(ignore: true)
   _$$MenuPageStateImplCopyWith<_$MenuPageStateImpl> get copyWith =>

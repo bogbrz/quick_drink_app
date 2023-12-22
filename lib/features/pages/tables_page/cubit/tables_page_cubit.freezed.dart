@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$TablesPageState {
   String get errorMessage => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
   List<TableModel> get tables => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $TablesPageStateCopyWith<$Res> {
           TablesPageState value, $Res Function(TablesPageState) then) =
       _$TablesPageStateCopyWithImpl<$Res, TablesPageState>;
   @useResult
-  $Res call({String errorMessage, List<TableModel> tables});
+  $Res call({String errorMessage, Status status, List<TableModel> tables});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$TablesPageStateCopyWithImpl<$Res, $Val extends TablesPageState>
   @override
   $Res call({
     Object? errorMessage = null,
+    Object? status = null,
     Object? tables = null,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +56,10 @@ class _$TablesPageStateCopyWithImpl<$Res, $Val extends TablesPageState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
       tables: null == tables
           ? _value.tables
           : tables // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$TablesPageStateImplCopyWith<$Res>
       __$$TablesPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String errorMessage, List<TableModel> tables});
+  $Res call({String errorMessage, Status status, List<TableModel> tables});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$TablesPageStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? errorMessage = null,
+    Object? status = null,
     Object? tables = null,
   }) {
     return _then(_$TablesPageStateImpl(
@@ -92,6 +99,10 @@ class __$$TablesPageStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
       tables: null == tables
           ? _value._tables
           : tables // ignore: cast_nullable_to_non_nullable
@@ -104,11 +115,15 @@ class __$$TablesPageStateImplCopyWithImpl<$Res>
 
 class _$TablesPageStateImpl implements _TablesPageState {
   _$TablesPageStateImpl(
-      {required this.errorMessage, required final List<TableModel> tables})
+      {required this.errorMessage,
+      required this.status,
+      required final List<TableModel> tables})
       : _tables = tables;
 
   @override
   final String errorMessage;
+  @override
+  final Status status;
   final List<TableModel> _tables;
   @override
   List<TableModel> get tables {
@@ -119,7 +134,7 @@ class _$TablesPageStateImpl implements _TablesPageState {
 
   @override
   String toString() {
-    return 'TablesPageState(errorMessage: $errorMessage, tables: $tables)';
+    return 'TablesPageState(errorMessage: $errorMessage, status: $status, tables: $tables)';
   }
 
   @override
@@ -129,12 +144,13 @@ class _$TablesPageStateImpl implements _TablesPageState {
             other is _$TablesPageStateImpl &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._tables, _tables));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, errorMessage, const DeepCollectionEquality().hash(_tables));
+  int get hashCode => Object.hash(runtimeType, errorMessage, status,
+      const DeepCollectionEquality().hash(_tables));
 
   @JsonKey(ignore: true)
   @override
@@ -147,10 +163,13 @@ class _$TablesPageStateImpl implements _TablesPageState {
 abstract class _TablesPageState implements TablesPageState {
   factory _TablesPageState(
       {required final String errorMessage,
+      required final Status status,
       required final List<TableModel> tables}) = _$TablesPageStateImpl;
 
   @override
   String get errorMessage;
+  @override
+  Status get status;
   @override
   List<TableModel> get tables;
   @override

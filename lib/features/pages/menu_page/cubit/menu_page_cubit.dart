@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:quick_drink_app/app/core/enums.dart';
 
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
 
@@ -14,6 +15,7 @@ class MenuPageCubit extends Cubit<MenuPageState> {
   MenuPageCubit({required this.menuRepository})
       : super(
           MenuPageState(
+            status: Status.initial,
             errorMessage: '',
             menuList: [],
           ),
@@ -23,11 +25,13 @@ class MenuPageCubit extends Cubit<MenuPageState> {
   StreamSubscription? streamSubscription;
 
   Future<void> testList({required String type}) async {
+    emit(MenuPageState(errorMessage: '', menuList: [], status: Status.loading));
     final results = await menuRepository.getExamplePositions(type: type);
 
     try {
       emit(
         MenuPageState(
+          status: Status.success,
           errorMessage: '',
           menuList: results,
         ),
@@ -35,6 +39,7 @@ class MenuPageCubit extends Cubit<MenuPageState> {
     } catch (error) {
       emit(
         MenuPageState(
+          status: Status.error,
           errorMessage: error.toString(),
           menuList: [],
         ),
@@ -43,18 +48,22 @@ class MenuPageCubit extends Cubit<MenuPageState> {
   }
 
   Future<void> addedDishesData({required String type}) async {
+    emit(MenuPageState(errorMessage: '', menuList: [], status: Status.loading));
     streamSubscription =
         menuRepository.getAddedData(type: type).listen((results) {
       emit(
         MenuPageState(
+          status: Status.success,
           errorMessage: '',
           menuList: results,
         ),
       );
+      print("Wyniki $results");
     })
           ..onError((error) {
             emit(
               MenuPageState(
+                status: Status.error,
                 errorMessage: error.toString(),
                 menuList: [],
               ),

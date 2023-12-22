@@ -19,7 +19,8 @@ class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<OrderPageCubit>()..getPreOrder(tableNumber: widget.tableNumber) ,
+      create: (context) =>
+          getIt<OrderPageCubit>()..getPreOrder(tableNumber: widget.tableNumber),
       child: Scaffold(
           appBar: AppBar(
             shape:
@@ -104,8 +105,7 @@ class _OrderPageState extends State<OrderPage> {
                                   Dismissible(
                                     key: ValueKey(order.id),
                                     onDismissed: (_) {
-                                      context
-                                          .read<OrderPageCubit>()
+                                      getIt<OrderPageCubit>()
                                           .removePreOrder(id: order.id);
                                     },
                                     child: OrderWidget(
@@ -134,17 +134,13 @@ class _OrderPageState extends State<OrderPage> {
                                     : () {
                                         for (final order in state.orders) {
                                           if (index == 0) {
-                                            context
-                                                .read<OrderPageCubit>()
-                                                .addOrder(
-                                                    name: order.name,
-                                                    price: order.price,
-                                                    type: order.type,
-                                                    tableNumber:
-                                                        order.tableNumber,
-                                                    quantity: order.quantity);
-                                            context
-                                                .read<OrderPageCubit>()
+                                            getIt<OrderPageCubit>().addOrder(
+                                                name: order.name,
+                                                price: order.price,
+                                                type: order.type,
+                                                tableNumber: order.tableNumber,
+                                                quantity: order.quantity);
+                                            getIt<OrderPageCubit>()
                                                 .addOrderToDo(
                                                     name: order.name,
                                                     type: order.type,
@@ -152,13 +148,12 @@ class _OrderPageState extends State<OrderPage> {
                                                         order.tableNumber,
                                                     quantity: order.quantity);
 
-                                            context
-                                                .read<OrderPageCubit>()
+                                            getIt<OrderPageCubit>()
                                                 .removePreOrder(id: order.id);
                                           } else {
-                                            context
-                                                .read<OrderPageCubit>()
+                                            getIt<OrderPageCubit>()
                                                 .removeOrder(id: order.id);
+                                            Navigator.of(context).pop();
                                           }
                                         }
                                       },

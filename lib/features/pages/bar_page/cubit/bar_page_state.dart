@@ -3,7 +3,7 @@ part of 'bar_page_cubit.dart';
 class BarPageState with _$BarPageState {
   
 
- factory BarPageState({required String errorMessage, required List<ToDoModel> orders}) = _BarPageState;
+ factory BarPageState({required String errorMessage, required List<ToDoModel> orders,required Status status}) = _BarPageState;
 }
 
 

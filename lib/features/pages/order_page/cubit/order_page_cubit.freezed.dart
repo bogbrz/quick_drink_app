@@ -19,6 +19,7 @@ mixin _$OrderPageState {
   String get errorMessage => throw _privateConstructorUsedError;
   List<OrderModel> get orders => throw _privateConstructorUsedError;
   double get orderValue => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OrderPageStateCopyWith<OrderPageState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $OrderPageStateCopyWith<$Res> {
           OrderPageState value, $Res Function(OrderPageState) then) =
       _$OrderPageStateCopyWithImpl<$Res, OrderPageState>;
   @useResult
-  $Res call({String errorMessage, List<OrderModel> orders, double orderValue});
+  $Res call(
+      {String errorMessage,
+      List<OrderModel> orders,
+      double orderValue,
+      Status status});
 }
 
 /// @nodoc
@@ -50,6 +55,7 @@ class _$OrderPageStateCopyWithImpl<$Res, $Val extends OrderPageState>
     Object? errorMessage = null,
     Object? orders = null,
     Object? orderValue = null,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       errorMessage: null == errorMessage
@@ -64,6 +70,10 @@ class _$OrderPageStateCopyWithImpl<$Res, $Val extends OrderPageState>
           ? _value.orderValue
           : orderValue // ignore: cast_nullable_to_non_nullable
               as double,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$OrderPageStateImplCopyWith<$Res>
       __$$OrderPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String errorMessage, List<OrderModel> orders, double orderValue});
+  $Res call(
+      {String errorMessage,
+      List<OrderModel> orders,
+      double orderValue,
+      Status status});
 }
 
 /// @nodoc
@@ -93,6 +107,7 @@ class __$$OrderPageStateImplCopyWithImpl<$Res>
     Object? errorMessage = null,
     Object? orders = null,
     Object? orderValue = null,
+    Object? status = null,
   }) {
     return _then(_$OrderPageStateImpl(
       errorMessage: null == errorMessage
@@ -107,6 +122,10 @@ class __$$OrderPageStateImplCopyWithImpl<$Res>
           ? _value.orderValue
           : orderValue // ignore: cast_nullable_to_non_nullable
               as double,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
     ));
   }
 }
@@ -117,7 +136,8 @@ class _$OrderPageStateImpl implements _OrderPageState {
   _$OrderPageStateImpl(
       {required this.errorMessage,
       required final List<OrderModel> orders,
-      required this.orderValue})
+      required this.orderValue,
+      required this.status})
       : _orders = orders;
 
   @override
@@ -132,10 +152,12 @@ class _$OrderPageStateImpl implements _OrderPageState {
 
   @override
   final double orderValue;
+  @override
+  final Status status;
 
   @override
   String toString() {
-    return 'OrderPageState(errorMessage: $errorMessage, orders: $orders, orderValue: $orderValue)';
+    return 'OrderPageState(errorMessage: $errorMessage, orders: $orders, orderValue: $orderValue, status: $status)';
   }
 
   @override
@@ -147,12 +169,13 @@ class _$OrderPageStateImpl implements _OrderPageState {
                 other.errorMessage == errorMessage) &&
             const DeepCollectionEquality().equals(other._orders, _orders) &&
             (identical(other.orderValue, orderValue) ||
-                other.orderValue == orderValue));
+                other.orderValue == orderValue) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, errorMessage,
-      const DeepCollectionEquality().hash(_orders), orderValue);
+      const DeepCollectionEquality().hash(_orders), orderValue, status);
 
   @JsonKey(ignore: true)
   @override
@@ -166,7 +189,8 @@ abstract class _OrderPageState implements OrderPageState {
   factory _OrderPageState(
       {required final String errorMessage,
       required final List<OrderModel> orders,
-      required final double orderValue}) = _$OrderPageStateImpl;
+      required final double orderValue,
+      required final Status status}) = _$OrderPageStateImpl;
 
   @override
   String get errorMessage;
@@ -174,6 +198,8 @@ abstract class _OrderPageState implements OrderPageState {
   List<OrderModel> get orders;
   @override
   double get orderValue;
+  @override
+  Status get status;
   @override
   @JsonKey(ignore: true)
   _$$OrderPageStateImplCopyWith<_$OrderPageStateImpl> get copyWith =>

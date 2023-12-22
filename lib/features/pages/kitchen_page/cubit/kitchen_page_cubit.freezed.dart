@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$KitchenPageState {
   String get errorMessage => throw _privateConstructorUsedError;
   List<ToDoModel> get orders => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $KitchenPageStateCopyWith<KitchenPageState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $KitchenPageStateCopyWith<$Res> {
           KitchenPageState value, $Res Function(KitchenPageState) then) =
       _$KitchenPageStateCopyWithImpl<$Res, KitchenPageState>;
   @useResult
-  $Res call({String errorMessage, List<ToDoModel> orders});
+  $Res call({String errorMessage, List<ToDoModel> orders, Status status});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$KitchenPageStateCopyWithImpl<$Res, $Val extends KitchenPageState>
   $Res call({
     Object? errorMessage = null,
     Object? orders = null,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       errorMessage: null == errorMessage
@@ -58,6 +60,10 @@ class _$KitchenPageStateCopyWithImpl<$Res, $Val extends KitchenPageState>
           ? _value.orders
           : orders // ignore: cast_nullable_to_non_nullable
               as List<ToDoModel>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$KitchenPageStateImplCopyWith<$Res>
       __$$KitchenPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String errorMessage, List<ToDoModel> orders});
+  $Res call({String errorMessage, List<ToDoModel> orders, Status status});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$KitchenPageStateImplCopyWithImpl<$Res>
   $Res call({
     Object? errorMessage = null,
     Object? orders = null,
+    Object? status = null,
   }) {
     return _then(_$KitchenPageStateImpl(
       errorMessage: null == errorMessage
@@ -96,6 +103,10 @@ class __$$KitchenPageStateImplCopyWithImpl<$Res>
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
               as List<ToDoModel>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
     ));
   }
 }
@@ -104,7 +115,9 @@ class __$$KitchenPageStateImplCopyWithImpl<$Res>
 
 class _$KitchenPageStateImpl implements _KitchenPageState {
   _$KitchenPageStateImpl(
-      {required this.errorMessage, required final List<ToDoModel> orders})
+      {required this.errorMessage,
+      required final List<ToDoModel> orders,
+      required this.status})
       : _orders = orders;
 
   @override
@@ -118,8 +131,11 @@ class _$KitchenPageStateImpl implements _KitchenPageState {
   }
 
   @override
+  final Status status;
+
+  @override
   String toString() {
-    return 'KitchenPageState(errorMessage: $errorMessage, orders: $orders)';
+    return 'KitchenPageState(errorMessage: $errorMessage, orders: $orders, status: $status)';
   }
 
   @override
@@ -129,12 +145,13 @@ class _$KitchenPageStateImpl implements _KitchenPageState {
             other is _$KitchenPageStateImpl &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
-            const DeepCollectionEquality().equals(other._orders, _orders));
+            const DeepCollectionEquality().equals(other._orders, _orders) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, errorMessage, const DeepCollectionEquality().hash(_orders));
+  int get hashCode => Object.hash(runtimeType, errorMessage,
+      const DeepCollectionEquality().hash(_orders), status);
 
   @JsonKey(ignore: true)
   @override
@@ -147,12 +164,15 @@ class _$KitchenPageStateImpl implements _KitchenPageState {
 abstract class _KitchenPageState implements KitchenPageState {
   factory _KitchenPageState(
       {required final String errorMessage,
-      required final List<ToDoModel> orders}) = _$KitchenPageStateImpl;
+      required final List<ToDoModel> orders,
+      required final Status status}) = _$KitchenPageStateImpl;
 
   @override
   String get errorMessage;
   @override
   List<ToDoModel> get orders;
+  @override
+  Status get status;
   @override
   @JsonKey(ignore: true)
   _$$KitchenPageStateImplCopyWith<_$KitchenPageStateImpl> get copyWith =>

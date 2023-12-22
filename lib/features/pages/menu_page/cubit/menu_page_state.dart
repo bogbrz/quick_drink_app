@@ -6,5 +6,5 @@ class MenuPageState with _$MenuPageState {
 
   factory MenuPageState(
       {required String errorMessage,
-      required List<MenuPositionModel> menuList}) = _MenuPageState;
+      required List<MenuPositionModel> menuList, required Status status}) = _MenuPageState;
 }

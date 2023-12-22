@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 
-
+@injectable
 class TableRemoteDataSource {
   Stream<QuerySnapshot<Map<String, dynamic>>> getTableData() {
     return FirebaseFirestore.instance
