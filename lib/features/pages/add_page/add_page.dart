@@ -1,9 +1,8 @@
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quick_drink_app/data_source/example_menu_remote_data_source.dart';
-import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
-import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
+import 'package:quick_drink_app/app/injection_container.dart';
+
 import 'package:quick_drink_app/features/pages/add_page/cubit/add_page_cubit.dart';
 
 
@@ -40,10 +39,8 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddPageCubit(
-        menuRepository:
-            MenuRepository(menuRemoteDataSource: MenuRemoteDataSource(), exampleRetrofitDataSource: ExampleRetrofitDataSource(Dio())),
-      ),
+      create: (context) => getIt<AddPageCubit>(),
+    
       child: BlocBuilder<AddPageCubit, AddPageState>(
         builder: (context, state) {
           return Scaffold(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quick_drink_app/data_source/order_remote_data_source.dart';
-import 'package:quick_drink_app/domain/repositories/order_repository.dart';
+import 'package:quick_drink_app/app/injection_container.dart';
+
 import 'package:quick_drink_app/features/pages/bar_page/cubit/bar_page_cubit.dart';
 
 class BarPage extends StatelessWidget {
@@ -12,10 +12,7 @@ class BarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BarPageCubit(
-          orderRepository:
-              OrderRepository(orderRemoteDataSource: OrderRemotDataSource()))
-        ..getOrderbyType(),
+      create: (context) => getIt<BarPageCubit>()..getOrderbyType(),
       child: BlocBuilder<BarPageCubit, BarPageState>(
         builder: (context, state) {
           return Scaffold(
@@ -28,7 +25,7 @@ class BarPage extends StatelessWidget {
               body: Column(
                 children: [
                   for (final order in state.orders) ...[
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Center(
@@ -42,7 +39,7 @@ class BarPage extends StatelessWidget {
                               Text(order.tableNumber.toString()),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(

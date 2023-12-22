@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
 
 import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
@@ -61,12 +62,12 @@ class MenuPageCubit extends Cubit<MenuPageState> {
           });
   }
 
-  Future<void> addDishToPreOrders({
-    required int tableNumber,
-    required String name,
-    required int quantity,
-    required double price,
-    required String type  }) async {
+  Future<void> addDishToPreOrders(
+      {required int tableNumber,
+      required String name,
+      required int quantity,
+      required double price,
+      required String type}) async {
     menuRepository.addPositionToPreOrder(
         tableNumber: tableNumber,
         name: name,

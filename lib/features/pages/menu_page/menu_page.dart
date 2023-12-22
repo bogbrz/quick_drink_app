@@ -1,12 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quick_drink_app/data_source/example_menu_remote_data_source.dart';
-import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
+import 'package:quick_drink_app/app/injection_container.dart';
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
-import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
 import 'package:quick_drink_app/features/pages/add_page/add_page.dart';
-
 import 'package:quick_drink_app/features/pages/menu_page/cubit/menu_page_cubit.dart';
 
 class MenuPage extends StatefulWidget {
@@ -27,11 +23,9 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MenuPageCubit(
-        menuRepository: MenuRepository(
-            menuRemoteDataSource: MenuRemoteDataSource(),
-            exampleRetrofitDataSource: ExampleRetrofitDataSource(Dio())),
-      )..addedDishesData(type: positiontype),
+      create: (context) =>getIt<MenuPageCubit>()..addedDishesData(type: positiontype),
+      
+      
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
           return Scaffold(

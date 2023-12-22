@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quick_drink_app/data_source/order_remote_data_source.dart';
-import 'package:quick_drink_app/domain/repositories/order_repository.dart';
+import 'package:quick_drink_app/app/injection_container.dart';
+
 import 'package:quick_drink_app/features/pages/kitchen_page/cubit/kitchen_page_cubit.dart';
 
 class KitchenPage extends StatelessWidget {
@@ -10,10 +10,8 @@ class KitchenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => KitchenPageCubit(
-          orderRepository:
-              OrderRepository(orderRemoteDataSource: OrderRemotDataSource()))
-        ..getOrderbyType(),
+      create: (context) =>
+      getIt<KitchenPageCubit>()..getOrderbyType(), 
       child: BlocBuilder<KitchenPageCubit, KitchenPageState>(
           builder: (context, state) {
         return Scaffold(
@@ -26,7 +24,7 @@ class KitchenPage extends StatelessWidget {
             body: Column(
               children: [
                 for (final order in state.orders) ...[
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Center(
@@ -40,7 +38,7 @@ class KitchenPage extends StatelessWidget {
                             Text(order.tableNumber.toString()),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(

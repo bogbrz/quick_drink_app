@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
 
 part 'add_page_state.dart';

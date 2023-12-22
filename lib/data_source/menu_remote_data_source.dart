@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
+
 
 class MenuRemoteDataSource {
-
-
-
-
-    Stream<QuerySnapshot<Map<String, dynamic>>> getAddedPositions() {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAddedPositions() {
     return FirebaseFirestore.instance
         .collection("Menu")
         .orderBy("type")
@@ -24,7 +20,7 @@ class MenuRemoteDataSource {
         "name": name,
         "price": price,
         "ingredients": ingredients,
-        "type" : type,
+        "type": type,
       },
     );
   }
