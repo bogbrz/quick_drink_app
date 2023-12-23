@@ -41,4 +41,8 @@ class MenuRemoteDataSource {
       "type": type,
     });
   }
+
+  Future<void> removePostiton({required String id}) async {
+    return FirebaseFirestore.instance.collection("Menu").doc(id).delete();
+  }
 }

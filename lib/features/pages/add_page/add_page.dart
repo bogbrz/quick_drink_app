@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/app/injection_container.dart';
+import 'package:quick_drink_app/domain/models/menu_position_model.dart';
 
 import 'package:quick_drink_app/features/pages/add_page/cubit/add_page_cubit.dart';
 
@@ -37,7 +38,8 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AddPageCubit>(),
+      create: (context) => getIt<AddPageCubit>()
+        ..getAddedData(type: mealType == 0 ? "dish" : "drink"),
       child: BlocBuilder<AddPageCubit, AddPageState>(
         builder: (context, state) {
           return Scaffold(
@@ -126,7 +128,11 @@ class _AddPageState extends State<AddPage> {
                       InkWell(
                         onTap: () {
                           mealType == 0 ? mealType = 1 : mealType = 0;
-                          setState(() {});
+                          setState(() {
+                            context.read<AddPageCubit>()
+                              ..getAddedData(
+                                  type: mealType == 0 ? "dish" : "drink");
+                          });
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -146,11 +152,91 @@ class _AddPageState extends State<AddPage> {
                   const SizedBox(
                     height: 20,
                   ),
+                  Text("Current Menu",
+                      style: Theme.of(context).textTheme.headlineLarge),
+                  for (final position in state.postitions) ...[
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Dismissible(
+                      background: DecoratedBox(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Icon(Icons.delete),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                        ),
+                      ),
+                      key: ValueKey(position.id),
+                      onDismissed: (_) {
+                        context
+                            .read<AddPageCubit>()
+                            .removePosition(id: position.id);
+                      },
+                      child: ItemWidget(order: position),
+                    ),
+                  ]
                 ],
               ),
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class ItemWidget extends StatelessWidget {
+  const ItemWidget({
+    super.key,
+    required this.order,
+  });
+  final MenuPositionModel order;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.6,
+      decoration: BoxDecoration(
+          color: order.type == "dish" ? Colors.yellow : Colors.blue,
+          border: Border.all()),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      const Text(
+                        "Name",
+                      ),
+                      Text(order.name),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Text(
+                        "Price",
+                      ),
+                      Text(order.price.toString()),
+                    ],
+                  ),
+                ]),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Text(
+                "Ingredients:",
+              ),
+              Text(order.ingredients),
+            ],
+          ),
+        ]),
       ),
     );
   }

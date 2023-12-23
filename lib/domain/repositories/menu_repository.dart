@@ -1,4 +1,3 @@
-
 import 'package:quick_drink_app/data_source/example_menu_remote_data_source.dart';
 import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
@@ -55,5 +54,9 @@ class MenuRepository {
           .where((element) => element.type == type)
           .toList();
     });
+  }
+
+  Future<void> removePosition({required String id}) async {
+    return menuRemoteDataSource.removePostiton(id: id);
   }
 }

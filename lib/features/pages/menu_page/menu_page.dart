@@ -48,7 +48,7 @@ class _MenuPageState extends State<MenuPage> {
                     Icons.add,
                     size: 45,
                   ),
-                )
+                ),
               ],
               title: Text("Menu table ${widget.tableNumber}",
                   style: Theme.of(context).textTheme.headlineLarge),

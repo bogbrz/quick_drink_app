@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AddPageState {
   String get errorMessage => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
+  List<MenuPositionModel> get postitions => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddPageStateCopyWith<AddPageState> get copyWith =>
@@ -29,7 +31,8 @@ abstract class $AddPageStateCopyWith<$Res> {
           AddPageState value, $Res Function(AddPageState) then) =
       _$AddPageStateCopyWithImpl<$Res, AddPageState>;
   @useResult
-  $Res call({String errorMessage});
+  $Res call(
+      {String errorMessage, Status status, List<MenuPositionModel> postitions});
 }
 
 /// @nodoc
@@ -46,12 +49,22 @@ class _$AddPageStateCopyWithImpl<$Res, $Val extends AddPageState>
   @override
   $Res call({
     Object? errorMessage = null,
+    Object? status = null,
+    Object? postitions = null,
   }) {
     return _then(_value.copyWith(
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
+      postitions: null == postitions
+          ? _value.postitions
+          : postitions // ignore: cast_nullable_to_non_nullable
+              as List<MenuPositionModel>,
     ) as $Val);
   }
 }
@@ -64,7 +77,8 @@ abstract class _$$AddPageStateImplCopyWith<$Res>
       __$$AddPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String errorMessage});
+  $Res call(
+      {String errorMessage, Status status, List<MenuPositionModel> postitions});
 }
 
 /// @nodoc
@@ -79,12 +93,22 @@ class __$$AddPageStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? errorMessage = null,
+    Object? status = null,
+    Object? postitions = null,
   }) {
     return _then(_$AddPageStateImpl(
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as Status,
+      postitions: null == postitions
+          ? _value._postitions
+          : postitions // ignore: cast_nullable_to_non_nullable
+              as List<MenuPositionModel>,
     ));
   }
 }
@@ -92,14 +116,27 @@ class __$$AddPageStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddPageStateImpl implements _AddPageState {
-  _$AddPageStateImpl({required this.errorMessage});
+  _$AddPageStateImpl(
+      {required this.errorMessage,
+      required this.status,
+      required final List<MenuPositionModel> postitions})
+      : _postitions = postitions;
 
   @override
   final String errorMessage;
+  @override
+  final Status status;
+  final List<MenuPositionModel> _postitions;
+  @override
+  List<MenuPositionModel> get postitions {
+    if (_postitions is EqualUnmodifiableListView) return _postitions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postitions);
+  }
 
   @override
   String toString() {
-    return 'AddPageState(errorMessage: $errorMessage)';
+    return 'AddPageState(errorMessage: $errorMessage, status: $status, postitions: $postitions)';
   }
 
   @override
@@ -108,11 +145,15 @@ class _$AddPageStateImpl implements _AddPageState {
         (other.runtimeType == runtimeType &&
             other is _$AddPageStateImpl &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality()
+                .equals(other._postitions, _postitions));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, errorMessage);
+  int get hashCode => Object.hash(runtimeType, errorMessage, status,
+      const DeepCollectionEquality().hash(_postitions));
 
   @JsonKey(ignore: true)
   @override
@@ -122,11 +163,17 @@ class _$AddPageStateImpl implements _AddPageState {
 }
 
 abstract class _AddPageState implements AddPageState {
-  factory _AddPageState({required final String errorMessage}) =
-      _$AddPageStateImpl;
+  factory _AddPageState(
+      {required final String errorMessage,
+      required final Status status,
+      required final List<MenuPositionModel> postitions}) = _$AddPageStateImpl;
 
   @override
   String get errorMessage;
+  @override
+  Status get status;
+  @override
+  List<MenuPositionModel> get postitions;
   @override
   @JsonKey(ignore: true)
   _$$AddPageStateImplCopyWith<_$AddPageStateImpl> get copyWith =>
