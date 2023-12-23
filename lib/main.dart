@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:quick_drink_app/app/injection_container.dart';
 import 'package:quick_drink_app/firebase_options.dart';
 import 'package:quick_drink_app/features/pages/bar_page/bar_page.dart';
 import 'package:quick_drink_app/features/pages/tables_page/tables_page.dart';
@@ -8,6 +9,7 @@ import 'package:quick_drink_app/features/pages/kitchen_page/kitchen_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  configureDependencies();
 
   runApp(const MyApp());
 }
@@ -61,17 +63,17 @@ class _RootPageState extends State<RootPage> {
         },
         currentIndex: pageIndex,
         items: const [
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(
               Icons.table_bar,
             ),
             label: "Tables",
           ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.local_drink),
             label: "Bar",
           ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.food_bank),
             label: "Kitchen",
           ),

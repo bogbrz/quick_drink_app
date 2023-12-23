@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quick_drink_app/data_source/table_remote_data_source.dart';
+import 'package:quick_drink_app/app/injection_container.dart';
+
 import 'package:quick_drink_app/domain/models/table_model.dart';
-import 'package:quick_drink_app/domain/repositories/tables_repository.dart';
+
 import 'package:quick_drink_app/features/pages/tables_page/cubit/tables_page_cubit.dart';
 import 'package:quick_drink_app/root_page.dart';
 
-class TablePage extends StatelessWidget {
+class TablePage extends StatefulWidget {
   TablePage({
     super.key,
   });
+
+  @override
+  State<TablePage> createState() => _TablePageState();
+}
+
+class _TablePageState extends State<TablePage> {
   final tableNumber = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    tableNumber.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => TablesPageCubit(
-            tableRepository:
-                TableRepository(tableRemoteDataSource: TableRemoteDataSource()))
-          ..getTables(),
+        create: (context) => getIt<TablesPageCubit>()..getTables(),
         child: BlocBuilder<TablesPageCubit, TablesPageState>(
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
-                shape:
-                    const Border(bottom: BorderSide(color: Colors.black, width: 2)),
+                shape: const Border(
+                    bottom: BorderSide(color: Colors.black, width: 2)),
                 backgroundColor: Colors.orange,
                 title: Text("Tables Page",
                     style: Theme.of(context).textTheme.headlineLarge),
@@ -78,18 +90,21 @@ class TablePage extends StatelessWidget {
                             ],
                           ),
                           IconButton(
-                              onPressed: () {
-                                context.read<TablesPageCubit>().addTable(
-                                      tableNumber: int.parse(tableNumber.text),
-                                    );
-                                tableNumber.clear();
-                              },
-                              icon:  const Icon(
-                                  Icons.add_box,
-                                  size: 100,
-                                  color: Colors.white,
-                                ),
-                              )
+                            onPressed: tableNumber.text.isEmpty
+                                ? null
+                                : () {
+                                    getIt<TablesPageCubit>().addTable(
+                                        tableNumber:
+                                            int.parse(tableNumber.text));
+
+                                    tableNumber.clear();
+                                  },
+                            icon: const Icon(
+                              Icons.add_box,
+                              size: 100,
+                              color: Colors.white,
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -107,8 +122,7 @@ class TablePage extends StatelessWidget {
                                 Dismissible(
                                   key: ValueKey(table.id),
                                   onDismissed: (_) {
-                                    context
-                                        .read<TablesPageCubit>()
+                                    getIt<TablesPageCubit>()
                                         .removeTable(docId: table.id);
                                   },
                                   child: TableWidget(table: table),

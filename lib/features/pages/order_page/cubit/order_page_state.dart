@@ -1,13 +1,13 @@
 part of 'order_page_cubit.dart';
 
-class OrderPageState {
-  final String errorMessage;
-  final List<OrderModel> orders;
-  final double orderValue;
+@freezed
+class OrderPageState with _$OrderPageState {
 
-  OrderPageState({
-    required this.errorMessage,
-    required this.orders,
-    required this.orderValue,
-  });
+
+  factory OrderPageState({
+    required String errorMessage,
+    required List<OrderModel> orders,
+    required double orderValue,
+    required Status status
+  }) = _OrderPageState;
 }

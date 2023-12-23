@@ -1,21 +1,19 @@
-class MenuPositionModel {
-  MenuPositionModel(
-      {required this.name,
-      required this.id,
-      required this.price,
-      required this.ingredients,
-      required this.type});
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final String name;
-  final String id;
-  final double price;
-  final String ingredients;
-  final String type;
 
-  MenuPositionModel.fromJson(Map<String, dynamic> json)
-      : name = json["name"],
-        price = json["price"] + 0.0,
-        ingredients = json['ingredients'],
-        id = json["id"],
-        type = json['type'];
+part 'menu_position_model.g.dart';
+part 'menu_position_model.freezed.dart';
+
+@freezed
+class MenuPositionModel with _$MenuPositionModel {
+  factory MenuPositionModel({
+   required String name,
+   required String id,
+   required double price,
+   required String ingredients,
+   required String type,
+  }) = _MenuPositionModel;
+    factory MenuPositionModel.fromJson(Map<String, dynamic> json) =>
+      _$MenuPositionModelFromJson(json);
 }
+

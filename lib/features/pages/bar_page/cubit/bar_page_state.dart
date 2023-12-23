@@ -1,10 +1,9 @@
 part of 'bar_page_cubit.dart';
+@freezed
+class BarPageState with _$BarPageState {
+  
 
-class BarPageState {
-   final String errorMessage;
-  final List<ToDoModel> orders;
-
-  BarPageState({required this.errorMessage, required this.orders});
+ factory BarPageState({required String errorMessage, required List<ToDoModel> orders,required Status status}) = _BarPageState;
 }
 
 

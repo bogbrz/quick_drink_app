@@ -1,21 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class MenuRemoteDataSource {
-  Future<List<Map<String, dynamic>>?> getExamplePositions() async {
-    final respone = await Dio().get<List<dynamic>>(
-        "https://my-json-server.typicode.com/bogbrz/json-demo/db");
-
-    final listDynamic = respone.data;
-    if (listDynamic == null) {
-      return null;
-    }
-
-
-    return listDynamic.map((e) => e as Map<String, dynamic>).toList();
-  }
-
-    Stream<QuerySnapshot<Map<String, dynamic>>> getAddedPositions() {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAddedPositions() {
     return FirebaseFirestore.instance
         .collection("Menu")
         .orderBy("type")
@@ -33,7 +21,7 @@ class MenuRemoteDataSource {
         "name": name,
         "price": price,
         "ingredients": ingredients,
-        "type" : type,
+        "type": type,
       },
     );
   }
@@ -52,5 +40,9 @@ class MenuRemoteDataSource {
       "price": price,
       "type": type,
     });
+  }
+
+  Future<void> removePostiton({required String id}) async {
+    return FirebaseFirestore.instance.collection("Menu").doc(id).delete();
   }
 }

@@ -1,13 +1,13 @@
 part of 'kitchen_page_cubit.dart';
-
-class KitchenPageState {
-  final String errorMessage;
-  final List<ToDoModel> orders;
+@freezed
+class KitchenPageState with _$KitchenPageState {
+ 
  
 
-  KitchenPageState({
-    required this.errorMessage,
-    required this.orders,
+ factory KitchenPageState({
+    required String errorMessage,
+    required List<ToDoModel> orders,
+    required Status status
    
-  });
+  }) = _KitchenPageState;
 }

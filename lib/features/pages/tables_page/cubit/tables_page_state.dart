@@ -1,8 +1,11 @@
 part of 'tables_page_cubit.dart';
 
-class TablesPageState {
-  final String errorMessage;
-  final List<TableModel> tables;
+@freezed
+class TablesPageState with _$TablesPageState {
 
-  TablesPageState({required this.errorMessage, required this.tables});
+
+  factory TablesPageState(
+      {required String errorMessage,
+      required Status status,
+      required List<TableModel> tables}) = _TablesPageState;
 }

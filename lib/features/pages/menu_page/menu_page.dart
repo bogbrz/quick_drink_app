@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
+import 'package:quick_drink_app/app/injection_container.dart';
+
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
-import 'package:quick_drink_app/domain/repositories/menu_repository.dart';
+
 import 'package:quick_drink_app/features/pages/add_page/add_page.dart';
 
 import 'package:quick_drink_app/features/pages/menu_page/cubit/menu_page_cubit.dart';
@@ -25,15 +26,14 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MenuPageCubit(
-          menuRepository:
-              MenuRepository(menuRemoteDataSource: MenuRemoteDataSource()))
-        ..addedDishesData(type: positiontype),
+      create: (context) =>
+          getIt<MenuPageCubit>()..addedDishesData(type: positiontype),
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              shape: const Border(bottom: BorderSide(color: Colors.black, width: 2)),
+              shape: const Border(
+                  bottom: BorderSide(color: Colors.black, width: 2)),
               backgroundColor: Colors.orange,
               actions: [
                 InkWell(
@@ -48,7 +48,7 @@ class _MenuPageState extends State<MenuPage> {
                     Icons.add,
                     size: 45,
                   ),
-                )
+                ),
               ],
               title: Text("Menu table ${widget.tableNumber}",
                   style: Theme.of(context).textTheme.headlineLarge),
@@ -65,8 +65,6 @@ class _MenuPageState extends State<MenuPage> {
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
-
-                    
                         });
                       },
                       child: Container(
@@ -90,8 +88,6 @@ class _MenuPageState extends State<MenuPage> {
                           context
                               .read<MenuPageCubit>()
                               .testList(type: positiontype);
-
-                    
                         });
                       },
                       child: Container(
@@ -116,11 +112,10 @@ class _MenuPageState extends State<MenuPage> {
                       onTap: () {
                         setState(() {
                           positiontype = "dish";
+
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
-
-                       
                         });
                       },
                       child: Container(
@@ -134,9 +129,15 @@ class _MenuPageState extends State<MenuPage> {
                                   right: BorderSide(width: 1))),
                           width: MediaQuery.of(context).size.width / 2,
                           height: MediaQuery.of(context).size.height * 0.05,
-                          child: Text(
-                            "Dishes",
-                            style: Theme.of(context).textTheme.titleMedium,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Dishes",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Icon(Icons.dining_sharp)
+                            ],
                           )),
                     ),
                     InkWell(
@@ -146,7 +147,6 @@ class _MenuPageState extends State<MenuPage> {
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
-                       
                         });
                       },
                       child: Container(
@@ -160,9 +160,15 @@ class _MenuPageState extends State<MenuPage> {
                           alignment: Alignment.center,
                           width: MediaQuery.of(context).size.width / 2,
                           height: MediaQuery.of(context).size.height * 0.05,
-                          child: Text(
-                            "Drinks",
-                            style: Theme.of(context).textTheme.titleMedium,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Drinks",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Icon(Icons.local_drink_sharp)
+                            ],
                           )),
                     ),
                   ],

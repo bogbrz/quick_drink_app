@@ -1,8 +1,10 @@
 part of 'menu_page_cubit.dart';
 
-class MenuPageState {
-  final String errorMessage;
-  final List<MenuPositionModel> menuList;
+@freezed
+class MenuPageState with _$MenuPageState {
+ 
 
-  MenuPageState({required this.errorMessage, required this.menuList});
+  factory MenuPageState(
+      {required String errorMessage,
+      required List<MenuPositionModel> menuList, required Status status}) = _MenuPageState;
 }
