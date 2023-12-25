@@ -26,8 +26,7 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<MenuPageCubit>()..addedDishesData(type: positiontype),
+      create: (context) => getIt<MenuPageCubit>(),
       child: BlocBuilder<MenuPageCubit, MenuPageState>(
         builder: (context, state) {
           return Scaffold(
@@ -112,11 +111,16 @@ class _MenuPageState extends State<MenuPage> {
                       onTap: () {
                         setState(() {
                           positiontype = "dish";
-
+                        });
+                        if (menuType == 0) {
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
-                        });
+                        } else {
+                          context
+                              .read<MenuPageCubit>()
+                              .testList(type: positiontype);
+                        }
                       },
                       child: Container(
                           alignment: Alignment.center,
@@ -136,7 +140,7 @@ class _MenuPageState extends State<MenuPage> {
                                 "Dishes",
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
-                              Icon(Icons.dining_sharp)
+                              const Icon(Icons.dining_sharp)
                             ],
                           )),
                     ),
@@ -144,10 +148,16 @@ class _MenuPageState extends State<MenuPage> {
                       onTap: () {
                         setState(() {
                           positiontype = "drink";
+                        });
+                        if (menuType == 0) {
                           context
                               .read<MenuPageCubit>()
                               .addedDishesData(type: positiontype);
-                        });
+                        } else {
+                          context
+                              .read<MenuPageCubit>()
+                              .testList(type: positiontype);
+                        }
                       },
                       child: Container(
                           decoration: BoxDecoration(
@@ -167,7 +177,7 @@ class _MenuPageState extends State<MenuPage> {
                                 "Drinks",
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
-                              Icon(Icons.local_drink_sharp)
+                              const Icon(Icons.local_drink_sharp)
                             ],
                           )),
                     ),
@@ -221,6 +231,7 @@ class _DishesListWidgetState extends State<DishesListWidget> {
             height: MediaQuery.of(context).size.height * 0.3,
             margin: const EdgeInsets.all(25),
             decoration: BoxDecoration(
+              color: Colors.orange,
               border: Border.all(
                 width: 2,
                 color: Colors.black,
@@ -253,7 +264,7 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                     Expanded(
                       child: Text(
                         "Ingredients: ${widget.dish.ingredients}",
-                        style: Theme.of(context).textTheme.titleSmall,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   ],
@@ -294,6 +305,7 @@ class _DishesListWidgetState extends State<DishesListWidget> {
               Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
+                  color: Colors.deepOrangeAccent,
                   border: Border.all(
                     width: 2,
                     color: Colors.black,
@@ -326,6 +338,7 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
+                    color: Colors.green,
                     border: Border.all(
                       width: 2,
                       color: Colors.black,

@@ -28,14 +28,14 @@ class MenuRemoteDataSource {
 
   Future<void> addPositionToPreOrder({
     required int tableNumber,
-    required String dishName,
+    required String name,
     required int quantity,
     required double price,
     required String type,
   }) async {
     await FirebaseFirestore.instance.collection("PreOrder").add({
       "tableNumber": tableNumber,
-      "name": dishName,
+      "name": name,
       "quantity": quantity,
       "price": price,
       "type": type,

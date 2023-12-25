@@ -10,7 +10,7 @@ void configureDependencies() => getIt.init();
 abstract class RegisterModule {  
  
   @Named("BaseUrl")  
-  String get baseUrl => 'https://my-json-server.typicode.com/bogbrz/demo';  
+  String get baseUrl => 'https://my-json-server.typicode.com/bogbrz/demo/';  
   
 
   @lazySingleton  

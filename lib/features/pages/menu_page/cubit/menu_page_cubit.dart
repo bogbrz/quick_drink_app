@@ -58,7 +58,7 @@ class MenuPageCubit extends Cubit<MenuPageState> {
           menuList: results,
         ),
       );
-      print("Wyniki $results");
+   
     })
           ..onError((error) {
             emit(
