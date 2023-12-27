@@ -20,7 +20,7 @@ class TablesPageCubit extends Cubit<TablesPageState> {
 
   Future<void> getTables() async {
     emit(TablesPageState(errorMessage: '', status: Status.loading, tables: []));
-    streamSubscription = tableRepository.getTablesData().listen(
+    streamSubscription =  tableRepository.getTablesData().listen(
       (tables) {
         emit(
           TablesPageState(
@@ -33,10 +33,9 @@ class TablesPageCubit extends Cubit<TablesPageState> {
     )..onError(
         (error) {
           emit(
-            
             TablesPageState(
               status: Status.error,
-              errorMessage: error,
+              errorMessage: error.toString(),
               tables: [],
             ),
           );
@@ -45,13 +44,13 @@ class TablesPageCubit extends Cubit<TablesPageState> {
   }
 
   Future<void> removeTable({required String docId}) async {
-    tableRepository.removeTable(docId: docId);
+   await tableRepository.removeTable(docId: docId);
   }
 
   Future<void> addTable({
     required tableNumber,
   }) async {
-    tableRepository.addTables(
+   await tableRepository.addTables(
       tableNumber: tableNumber,
     );
   }

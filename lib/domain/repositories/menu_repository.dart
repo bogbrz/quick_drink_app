@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:quick_drink_app/data_source/example_menu_remote_data_source.dart';
 import 'package:quick_drink_app/data_source/menu_remote_data_source.dart';
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
@@ -31,6 +32,8 @@ class MenuRepository {
       required int quantity,
       required double price,
       required String type}) async {
+        
+        
     await menuRemoteDataSource.addPositionToPreOrder(
         tableNumber: tableNumber,
         name: name,

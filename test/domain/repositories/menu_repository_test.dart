@@ -1,4 +1,4 @@
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:quick_drink_app/data_source/example_menu_remote_data_source.dart';
@@ -126,11 +126,5 @@ void main() {
     });
   });
 
-  // group("getAddedData", () {
-  //   test("should call menuRemoteDataSource.getAddedPositions() once", () async {
-
-  //     when(() => dataSource2
-  //       .getAddedPositions()).thenAnswer((_) => );
-  //   });
-  // });
+ 
 }
