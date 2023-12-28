@@ -129,9 +129,8 @@ class _AddPageState extends State<AddPage> {
                         onTap: () {
                           mealType == 0 ? mealType = 1 : mealType = 0;
                           setState(() {
-                            context.read<AddPageCubit>()
-                              ..getAddedData(
-                                  type: mealType == 0 ? "dish" : "drink");
+                            context.read<AddPageCubit>().getAddedData(
+                                type: mealType == 0 ? "dish" : "drink");
                           });
                         },
                         child: Container(
@@ -152,20 +151,26 @@ class _AddPageState extends State<AddPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text("Current Menu",
-                      style: Theme.of(context).textTheme.headlineLarge),
+                  Column(
+                    children: [
+                      Text("Current Menu",
+                          style: Theme.of(context).textTheme.headlineLarge),
+                      Text("Swipe to remove",
+                          style: Theme.of(context).textTheme.headlineSmall)
+                    ],
+                  ),
                   for (final position in state.postitions) ...[
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Dismissible(
-                      background: DecoratedBox(
+                      background: const DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                        ),
                         child: Align(
                           alignment: Alignment.center,
                           child: Icon(Icons.delete),
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
                         ),
                       ),
                       key: ValueKey(position.id),
@@ -227,14 +232,8 @@ class ItemWidget extends StatelessWidget {
                   ),
                 ]),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text(
-                "Ingredients:",
-              ),
-              Text(order.ingredients),
-            ],
+          Text(
+            "Ingredients: ${order.ingredients}",
           ),
         ]),
       ),

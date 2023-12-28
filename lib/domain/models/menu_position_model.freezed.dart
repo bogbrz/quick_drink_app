@@ -141,7 +141,8 @@ class __$$MenuPositionModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$MenuPositionModelImpl implements _MenuPositionModel {
   _$MenuPositionModelImpl(
       {required this.name,

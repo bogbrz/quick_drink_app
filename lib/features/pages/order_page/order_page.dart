@@ -61,10 +61,10 @@ class _OrderPageState extends State<OrderPage> {
                                     bottom: BorderSide(width: 2),
                                     right: BorderSide(width: 1))),
                             width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height * 0.05,
+                            height: MediaQuery.of(context).size.height / 10,
                             child: Text(
                               "Order",
-                              style: Theme.of(context).textTheme.titleMedium,
+                              style: Theme.of(context).textTheme.headlineLarge,
                             )),
                       ),
                       InkWell(
@@ -84,13 +84,12 @@ class _OrderPageState extends State<OrderPage> {
                                 border: const Border(
                                     bottom: BorderSide(width: 2),
                                     left: BorderSide(width: 1))),
-                            alignment: Alignment.center,
                             width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            child: Text(
-                              "Already Ordered",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            )),
+                            height: MediaQuery.of(context).size.height / 10,
+                            child: Text("Already Ordered",
+                                textAlign: TextAlign.center,
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge)),
                       ),
                     ],
                   ),
@@ -214,32 +213,39 @@ class OrderWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      child: Column(
+                        children: [
+                          Text("Name: ${order.name}",
+                              style: Theme.of(context).textTheme.titleMedium),
+                        ],
+                      ),
+                    ),
                     Column(
                       children: [
-                        const Text(
-                          "Name",
-                        ),
-                        Text(order.name),
+                        Text("Quantity",
+                            style: Theme.of(context).textTheme.titleMedium),
+                        Text(order.quantity.toString(),
+                            style: Theme.of(context).textTheme.titleMedium),
                       ],
                     ),
                     Column(
                       children: [
-                        const Text("Quantity"),
-                        Text(order.quantity.toString()),
+                        Text("Price",
+                            style: Theme.of(context).textTheme.titleMedium),
+                        Text(order.price.toString(),
+                            style: Theme.of(context).textTheme.titleMedium),
                       ],
                     ),
                     Column(
                       children: [
-                        const Text("Price"),
-                        Text(order.price.toString()),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("Sum up"),
-                        Text((order.orderPrice).toString())
+                        Text("Sum up",
+                            style: Theme.of(context).textTheme.titleMedium),
+                        Text((order.orderPrice).toString(),
+                            style: Theme.of(context).textTheme.titleMedium)
                       ],
                     )
                   ]),

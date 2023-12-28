@@ -13,7 +13,7 @@ class BarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<BarPageCubit>()..getOrderbyType(),
+      create: (context) => getIt<BarPageCubit>()..getOrderbyType(type: "drink"),
       child: BlocBuilder<BarPageCubit, BarPageState>(
         builder: (context, state) {
           return Scaffold(
@@ -63,7 +63,6 @@ class ItemWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.6,
         decoration: BoxDecoration(
             color: order.type == "dish" ? Colors.yellow : Colors.blue,
             border: Border.all()),
@@ -71,29 +70,31 @@ class ItemWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(children: [
             Row(
-              children: [Text("TableNumber: ${order.tableNumber.toString()}")],
+              children: [
+                Text("TableNumber: ${order.tableNumber.toString()}",
+                    style: Theme.of(context).textTheme.titleLarge)
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Expanded(
+                child: Column(
                   children: [
-                    Column(
-                      children: [
-                        const Text(
-                          "Name",
-                        ),
-                        Text(order.name),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("Quantity"),
-                        Text(order.quantity.toString()),
-                      ],
-                    ),
-                  ]),
-            ),
+                    Text("Name:",
+                        style: Theme.of(context).textTheme.titleLarge),
+                    Text(order.name,
+                        style: Theme.of(context).textTheme.titleLarge),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Text("Quantity",
+                      style: Theme.of(context).textTheme.titleLarge),
+                  Text(order.quantity.toString(),
+                      style: Theme.of(context).textTheme.titleLarge),
+                ],
+              ),
+            ]),
           ]),
         ),
       ),

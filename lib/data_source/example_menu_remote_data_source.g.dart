@@ -32,7 +32,7 @@ class _ExampleRetrofitDataSource implements ExampleRetrofitDataSource {
     )
             .compose(
               _dio.options,
-              '/db',
+              '/positions',
               queryParameters: queryParameters,
               data: _data,
             )

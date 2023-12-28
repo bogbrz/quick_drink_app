@@ -47,7 +47,7 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       body: Builder(builder: (context) {
         if (pageIndex == 0) {
-          return TablePage();
+          return const TablePage();
         }
         if (pageIndex == 1) {
           return const BarPage();

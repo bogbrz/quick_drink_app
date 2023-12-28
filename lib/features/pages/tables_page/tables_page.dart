@@ -8,7 +8,7 @@ import 'package:quick_drink_app/features/pages/tables_page/cubit/tables_page_cub
 import 'package:quick_drink_app/root_page.dart';
 
 class TablePage extends StatefulWidget {
-  TablePage({
+  const TablePage({
     super.key,
   });
 

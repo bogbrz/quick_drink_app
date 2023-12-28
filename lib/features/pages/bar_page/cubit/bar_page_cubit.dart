@@ -18,10 +18,10 @@ class BarPageCubit extends Cubit<BarPageState> {
   final OrderRepository orderRepository;
   StreamSubscription? streamSubscription;
 
-  Future<void> getOrderbyType() async {
+  Future<void> getOrderbyType({required String type}) async {
     emit(BarPageState(errorMessage: '', orders: [], status: Status.loading));
     streamSubscription =
-        orderRepository.getOrderbyType(type: "drink").listen((orders) {
+        orderRepository.getOrderbyType(type: type).listen((orders) {
       emit(BarPageState(
           errorMessage: '', orders: orders, status: Status.success));
     })

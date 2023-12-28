@@ -26,9 +26,10 @@ class MenuPageCubit extends Cubit<MenuPageState> {
 
   Future<void> testList({required String type}) async {
     emit(MenuPageState(errorMessage: '', menuList: [], status: Status.loading));
-    final results = await menuRepository.getExamplePositions(type: type);
-
+   
     try {
+       final results = await menuRepository.getExamplePositions(type: type);
+
       emit(
         MenuPageState(
           status: Status.success,
@@ -58,7 +59,7 @@ class MenuPageCubit extends Cubit<MenuPageState> {
           menuList: results,
         ),
       );
-      print("Wyniki $results");
+   
     })
           ..onError((error) {
             emit(

@@ -20,11 +20,11 @@ class KitchenPageCubit extends Cubit<KitchenPageState> {
   final OrderRepository orderRepository;
   StreamSubscription? streamSubscription;
 
-  Future<void> getOrderbyType() async {
+  Future<void> getOrderbyType({required String type}) async {
     emit(
-        KitchenPageState(errorMessage: '', orders: [], status: Status.initial));
+        KitchenPageState(errorMessage: '', orders: [], status: Status.loading));
     streamSubscription =
-        orderRepository.getOrderbyType(type: "dish").listen((orders) {
+        orderRepository.getOrderbyType(type: type).listen((orders) {
       emit(KitchenPageState(
         status: Status.success,
         errorMessage: '',

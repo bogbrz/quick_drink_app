@@ -13,8 +13,7 @@ class MenuRepository {
   Future<List<MenuPositionModel>> getExamplePositions(
       {required String type}) async {
     final json = await exampleRetrofitDataSource.getExamplePositions();
-
-    return json;
+    return json.where((element) => element.type == type).toList();
   }
 
   Future<void> addPosition(
@@ -34,7 +33,7 @@ class MenuRepository {
       required String type}) async {
     await menuRemoteDataSource.addPositionToPreOrder(
         tableNumber: tableNumber,
-        dishName: name,
+        name: name,
         quantity: quantity,
         price: price,
         type: type);
