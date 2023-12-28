@@ -1,8 +1,9 @@
 part of 'root_page_cubit.dart';
 
-class RootPageState {
-  final User? user;
-  final String errorMessage;
+@freezed
+class RootPageState with _$RootPageState {
 
-  RootPageState({required this.user, required this.errorMessage});
+
+  factory RootPageState({required User? user, required String errorMessage}) =
+      _RootPageState;
 }

@@ -1,29 +1,55 @@
-import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
-import 'package:quick_drink_app/app/core/enums.dart';
+import 'package:bloc/bloc.dart';
+
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'package:quick_drink_app/domain/repositories/authentication_repository.dart';
 
 part 'log_in_page_state.dart';
+part 'log_in_page_cubit.freezed.dart';
 
 class LogInPageCubit extends Cubit<LogInPageState> {
-  LogInPageCubit()
+  LogInPageCubit({required this.authRepository})
       : super(LogInPageState(
-           errorMessage: "", status: Status.initial));
+          errorMessage: "",
+        ));
+  final AuthRepository authRepository;
+
 
   Future<void> signInWitEmailAndPassword(
       {required String email, required String password}) async {
+    emit(LogInPageState(
+      errorMessage: "",
+    ));
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+       await authRepository.signInWitEmailAndPassword(
+          email: email, password: password);
+      emit(LogInPageState(
+        errorMessage: "",
+      ));
     } catch (error) {
-      print(error);
+      emit(LogInPageState(
+        errorMessage: error.toString(),
+      ));
     }
   }
 
   Future<void> createUserWithEmailAndPassword(
       {required String email, required String password}) async {
-    await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
+    emit(LogInPageState(
+      errorMessage: "",
+    ));
+    try {
+     await authRepository.createUserWithEmailAndPassword(
+          email: email, password: password);
+      emit(LogInPageState(
+        errorMessage: "",
+      ));
+    } catch (error) {
+      LogInPageState(
+        errorMessage: error.toString(),
+      );
+    }
   }
 }
-

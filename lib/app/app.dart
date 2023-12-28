@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quick_drink_app/app/root_page/root_page.dart';
-import 'package:quick_drink_app/features/pages/bar_kitchen_table_pages/navigator_page_1.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

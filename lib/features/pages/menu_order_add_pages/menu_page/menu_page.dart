@@ -5,10 +5,7 @@ import 'package:quick_drink_app/app/injection_container.dart';
 import 'package:quick_drink_app/domain/models/menu_position_model.dart';
 import 'package:quick_drink_app/features/pages/menu_order_add_pages/add_page/add_page.dart';
 
-
 import 'package:quick_drink_app/features/pages/menu_order_add_pages/menu_page/cubit/menu_page_cubit.dart';
-
-
 
 class MenuPage extends StatefulWidget {
   const MenuPage({
@@ -247,9 +244,11 @@ class _DishesListWidgetState extends State<DishesListWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        widget.dish.name,
-                        style: Theme.of(context).textTheme.titleMedium,
+                      Expanded(
+                        child: Text(
+                          widget.dish.name,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                       ),
                       Text(
                         "Price: ${widget.dish.price.toString()}",

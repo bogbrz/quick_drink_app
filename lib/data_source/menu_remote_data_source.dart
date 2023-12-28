@@ -1,10 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class MenuRemoteDataSource {
+  final UserId = FirebaseAuth.instance.currentUser?.uid;
   Stream<QuerySnapshot<Map<String, dynamic>>> getAddedPositions() {
+
+    if (UserId == null) {
+      throw Exception("user not logged in");
+    }
     return FirebaseFirestore.instance
+        .collection("users")
+        .doc(UserId)
         .collection("Menu")
         .orderBy("type")
         .snapshots();
@@ -16,7 +24,14 @@ class MenuRemoteDataSource {
     required String ingredients,
     required String type,
   }) async {
-    await FirebaseFirestore.instance.collection("Menu").add(
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(UserId)
+        .collection("Menu")
+        .add(
       {
         "name": name,
         "price": price,
@@ -33,7 +48,14 @@ class MenuRemoteDataSource {
     required double price,
     required String type,
   }) async {
-    await FirebaseFirestore.instance.collection("PreOrder").add({
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(UserId)
+        .collection("PreOrder")
+        .add({
       "tableNumber": tableNumber,
       "name": name,
       "quantity": quantity,
@@ -43,6 +65,14 @@ class MenuRemoteDataSource {
   }
 
   Future<void> removePostiton({required String id}) async {
-    return FirebaseFirestore.instance.collection("Menu").doc(id).delete();
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(UserId)
+        .collection("Menu")
+        .doc(id)
+        .delete();
   }
 }

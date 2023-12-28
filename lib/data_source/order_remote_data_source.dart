@@ -1,21 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class OrderRemotDataSource {
+    final UserId = FirebaseAuth.instance.currentUser?.uid;
   Stream<QuerySnapshot<Map<String, dynamic>>> getPreOrderData() {
-    return FirebaseFirestore.instance
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    return FirebaseFirestore.instance.collection("users").doc(UserId)
         .collection("PreOrder")
         .orderBy("type")
         .snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getOrder() {
-    return FirebaseFirestore.instance.collection("Orders").snapshots();
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    return FirebaseFirestore.instance.collection("users").doc(UserId).collection("Orders").snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getToDoOrdersData() {
-    return FirebaseFirestore.instance.collection("ToDo").snapshots();
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    return FirebaseFirestore.instance.collection("users").doc(UserId).collection("ToDo").snapshots();
   }
 
   Future<void> addOrder({
@@ -25,7 +36,10 @@ class OrderRemotDataSource {
     required int quantity,
     required double price,
   }) async {
-    FirebaseFirestore.instance.collection("Orders").add({
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    FirebaseFirestore.instance.collection("users").doc(UserId).collection("Orders").add({
       "tableNumber": tableNumber,
       "name": name,
       "quantity": quantity,
@@ -40,7 +54,10 @@ class OrderRemotDataSource {
     required String name,
     required int quantity,
   }) async {
-    FirebaseFirestore.instance.collection("ToDo").add({
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    FirebaseFirestore.instance.collection("users").doc(UserId).collection("ToDo").add({
       "name": name,
       "type": type,
       "tableNumber": tableNumber,
@@ -49,14 +66,23 @@ class OrderRemotDataSource {
   }
 
   Future<void> removePreOrder({required String id}) async {
-    return FirebaseFirestore.instance.collection("PreOrder").doc(id).delete();
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    return FirebaseFirestore.instance.collection("users").doc(UserId).collection("PreOrder").doc(id).delete();
   }
 
   Future<void> removeToDoOrder({required String id}) async {
-    return FirebaseFirestore.instance.collection("ToDo").doc(id).delete();
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    return FirebaseFirestore.instance.collection("users").doc(UserId).collection("ToDo").doc(id).delete();
   }
 
   Future<void> removeOrder({required String id}) async {
-    return FirebaseFirestore.instance.collection("Orders").doc(id).delete();
+     if (UserId == null) {
+      throw Exception("user not logged in");
+    }
+    return FirebaseFirestore.instance.collection("users").doc(UserId).collection("Orders").doc(id).delete();
   }
 }

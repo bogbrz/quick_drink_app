@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quick_drink_app/app/injection_container.dart';
 import 'package:quick_drink_app/app/root_page/cubit/root_page_cubit.dart';
 
 import 'package:quick_drink_app/features/pages/bar_kitchen_table_pages/navigator_page_1.dart';
@@ -15,7 +16,7 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => RootPageCubit()..authStateChanges(),
+        create: (context) => getIt<RootPageCubit>()..authStateChanges(),
         child: BlocBuilder<RootPageCubit, RootPageState>(
             builder: (context, state) {
           if (state.user == null) {

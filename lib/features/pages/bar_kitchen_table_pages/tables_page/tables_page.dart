@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/app/injection_container.dart';
@@ -10,8 +11,11 @@ import 'package:quick_drink_app/features/pages/menu_order_add_pages/navigator_pa
 
 class TablePage extends StatefulWidget {
   const TablePage({
+
+    
     super.key,
   });
+  
 
   @override
   State<TablePage> createState() => _TablePageState();
@@ -19,6 +23,7 @@ class TablePage extends StatefulWidget {
 
 class _TablePageState extends State<TablePage> {
   final tableNumber = TextEditingController();
+
 
   @override
   void initState() {
@@ -30,6 +35,7 @@ class _TablePageState extends State<TablePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return BlocProvider(
         create: (context) => getIt<TablesPageCubit>()..getTables(),
         child: BlocBuilder<TablesPageCubit, TablesPageState>(
