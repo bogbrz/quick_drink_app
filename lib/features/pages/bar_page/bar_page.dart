@@ -13,7 +13,7 @@ class BarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<BarPageCubit>()..getOrderbyType(),
+      create: (context) => getIt<BarPageCubit>()..getOrderbyType(type: "drink"),
       child: BlocBuilder<BarPageCubit, BarPageState>(
         builder: (context, state) {
           return Scaffold(

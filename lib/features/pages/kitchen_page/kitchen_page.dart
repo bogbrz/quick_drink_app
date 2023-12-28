@@ -11,7 +11,8 @@ class KitchenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<KitchenPageCubit>()..getOrderbyType(),
+      create: (context) =>
+          getIt<KitchenPageCubit>()..getOrderbyType(type: "dish"),
       child: BlocBuilder<KitchenPageCubit, KitchenPageState>(
           builder: (context, state) {
         return Scaffold(

@@ -4,16 +4,17 @@ import 'package:mocktail/mocktail.dart';
 import 'package:quick_drink_app/app/core/enums.dart';
 import 'package:quick_drink_app/domain/models/to_do_model.dart';
 import 'package:quick_drink_app/domain/repositories/order_repository.dart';
-import 'package:quick_drink_app/features/pages/bar_page/cubit/bar_page_cubit.dart';
+
+import 'package:quick_drink_app/features/pages/kitchen_page/cubit/kitchen_page_cubit.dart';
 
 class MockOrderRepository extends Mock implements OrderRepository {}
 
 void main() {
-  late BarPageCubit sut;
+  late KitchenPageCubit sut;
   late MockOrderRepository repository;
   setUp(() {
     repository = MockOrderRepository();
-    sut = BarPageCubit(orderRepository: repository);
+    sut = KitchenPageCubit(orderRepository: repository);
   });
 
   group("getOrderbyType", () {
@@ -40,13 +41,13 @@ void main() {
                     id: "11")
               ])));
 
-      blocTest<BarPageCubit, BarPageState>(
+      blocTest<KitchenPageCubit, KitchenPageState>(
         "should emit Status.loading then status.succses with results",
         build: () => sut,
         act: (cubit) => cubit.getOrderbyType(type: "type"),
-        expect: () async => <BarPageState>[
-          BarPageState(errorMessage: "", orders: [], status: Status.loading),
-          BarPageState(
+        expect: () async => <KitchenPageState>[
+          KitchenPageState(errorMessage: "", orders: [], status: Status.loading),
+          KitchenPageState(
               errorMessage: "",
               orders: [
                 ToDoModel(
@@ -78,13 +79,13 @@ void main() {
             () => repository.getOrderbyType(type: "type"),
           ).thenAnswer((_) => Stream.error("error")));
 
-      blocTest<BarPageCubit, BarPageState>(
+      blocTest<KitchenPageCubit, KitchenPageState>(
         "should emit Status.loading then Status.error with errorMessage",
         build: () => sut,
         act: (cubit) => cubit.getOrderbyType(type: "type"),
-        expect: () => <BarPageState>[
-          BarPageState(errorMessage: "", orders: [], status: Status.loading),
-          BarPageState(errorMessage: "error", orders: [], status: Status.error)
+        expect: () => <KitchenPageState>[
+          KitchenPageState(errorMessage: "", orders: [], status: Status.loading),
+          KitchenPageState(errorMessage: "error", orders: [], status: Status.error)
         ],
       );
     });
