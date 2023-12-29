@@ -34,6 +34,6 @@ Technologies that have been used:
 
 ![7](https://github.com/bogbrz/quick_drink_app/assets/142913714/b10ace6b-7690-451d-b324-8c3a028a94c0) ![8](https://github.com/bogbrz/quick_drink_app/assets/142913714/ee26e8f9-7fab-4d80-a0fe-eb8238b42133)
 
-![9](https://github.com/bogbrz/quick_drink_app/assets/142913714/80a4c528-44d2-4028-9593-8faa25b69070) ![10](https://github.com/bogbrz/quick_drink_app/assets/142913714/2f26683b-4eff-4494-b00b-75d9fd8bbc2e)
+![9](https://github.com/bogbrz/quick_drink_app/assets/142913714/da4fb548-44e9-4258-bd8c-5a55c0f57032) ![10](https://github.com/bogbrz/quick_drink_app/assets/142913714/2f26683b-4eff-4494-b00b-75d9fd8bbc2e)
 
 ![11](https://github.com/bogbrz/quick_drink_app/assets/142913714/ef36278c-287d-4034-98cd-3a0177387f83)
