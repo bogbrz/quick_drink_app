@@ -67,8 +67,9 @@ class _MenuPageState extends State<MenuPage> {
                       },
                       child: Container(
                           alignment: Alignment.center,
-                          decoration: const BoxDecoration(
-                              color: Colors.orangeAccent,
+                          decoration:  BoxDecoration(
+                              color: menuType ==0  ? Colors.deepOrange
+                                  : Colors.orangeAccent,
                               border: Border(
                                   bottom: BorderSide(width: 2),
                                   right: BorderSide(width: 1))),
@@ -89,8 +90,9 @@ class _MenuPageState extends State<MenuPage> {
                         });
                       },
                       child: Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.deepOrange,
+                          decoration:  BoxDecoration(
+                              color: menuType ==1  ? Colors.deepOrange
+                                  : Colors.orangeAccent,
                               border: Border(
                                   bottom: BorderSide(width: 2),
                                   left: BorderSide(width: 1))),
