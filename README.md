@@ -1,7 +1,6 @@
 QUICK DRINK APP - Restaruant's functionality support application
 
 What is it about?
-
 This app purpose is to short the time of serving the client.
 
 How does it work?
