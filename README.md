@@ -10,6 +10,7 @@ At the end of serving the table, the list of all positions ordered to that table
 This app was written in dart language with use of flutter.
 The structure of the app was modeled for the clean architecture structure.
 Unit test were written for repositories and cubits.
+
 ![image](https://github.com/bogbrz/quick_drink_app/assets/142913714/824782fe-9c93-4354-9372-452d06733e1a)
 
 
@@ -25,14 +26,14 @@ Technologies that have been used:
 
 
 
-![1](https://github.com/bogbrz/quick_drink_app/assets/142913714/532fd6f7-8f5c-4462-b868-0ea13c72a735)
-![11](https://github.com/bogbrz/quick_drink_app/assets/142913714/774c7641-963e-4491-9853-8cdc34e7e471)
-![10](https://github.com/bogbrz/quick_drink_app/assets/142913714/fa06464a-ab2a-4ce4-b377-fa6f0b5cb1fa)
-![9](https://github.com/bogbrz/quick_drink_app/assets/142913714/8139afed-5b39-4cab-8d33-620082f8bf44)
-![8](https://github.com/bogbrz/quick_drink_app/assets/142913714/9310b749-6b8d-455b-9a81-1dbc190b28b9)
-![7](https://github.com/bogbrz/quick_drink_app/assets/142913714/341b75a3-a5f8-49bd-ae5d-fa2976499025)
-![6](https://github.com/bogbrz/quick_drink_app/assets/142913714/856d3bad-a2a8-45f3-8740-854d69672aca)
-![5](https://github.com/bogbrz/quick_drink_app/assets/142913714/3366f3d8-a2aa-474f-ac31-3a7a7e504815)
-![4](https://github.com/bogbrz/quick_drink_app/assets/142913714/98b12029-7724-45e4-8af3-19fa4bff8d21)
-![3](https://github.com/bogbrz/quick_drink_app/assets/142913714/1502b008-93f9-4444-84c8-67b60521a251)
-![2](https://github.com/bogbrz/quick_drink_app/assets/142913714/ed0d65a8-1e5a-4d4e-859e-890a3c43b592)
+![1](https://github.com/bogbrz/quick_drink_app/assets/142913714/c5886634-7bb8-4213-8eae-75a7bd1eb4e2) ![2](https://github.com/bogbrz/quick_drink_app/assets/142913714/64bbe81c-b8b4-404e-92ef-41a4ad39532a)
+
+![3](https://github.com/bogbrz/quick_drink_app/assets/142913714/0c83f256-8a49-44ae-90a4-e3438bb4d08f) ![4](https://github.com/bogbrz/quick_drink_app/assets/142913714/7c93a90f-ffb3-4e97-98f0-5de974b4e3d6)
+
+![5](https://github.com/bogbrz/quick_drink_app/assets/142913714/f0e2e811-e1d4-46b4-a284-792c1c7898cc) ![6](https://github.com/bogbrz/quick_drink_app/assets/142913714/087a11f2-fe61-45ce-a131-491c9417c55b)
+
+![7](https://github.com/bogbrz/quick_drink_app/assets/142913714/b10ace6b-7690-451d-b324-8c3a028a94c0) ![8](https://github.com/bogbrz/quick_drink_app/assets/142913714/ee26e8f9-7fab-4d80-a0fe-eb8238b42133)
+
+![9](https://github.com/bogbrz/quick_drink_app/assets/142913714/80a4c528-44d2-4028-9593-8faa25b69070) ![10](https://github.com/bogbrz/quick_drink_app/assets/142913714/2f26683b-4eff-4494-b00b-75d9fd8bbc2e)
+
+![11](https://github.com/bogbrz/quick_drink_app/assets/142913714/ef36278c-287d-4034-98cd-3a0177387f83)
