@@ -5,8 +5,6 @@ import 'package:quick_drink_app/app/injection_container.dart';
 import 'package:quick_drink_app/domain/models/order_model.dart';
 import 'package:quick_drink_app/features/pages/menu_order_add_pages/order_page/cubit/order_page_cubit.dart';
 
-
-
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key, required this.tableNumber});
   final int tableNumber;
@@ -153,7 +151,6 @@ class _OrderPageState extends State<OrderPage> {
                                           } else {
                                             getIt<OrderPageCubit>()
                                                 .removeOrder(id: order.id);
-                                            Navigator.of(context).pop();
                                           }
                                         }
                                       },
