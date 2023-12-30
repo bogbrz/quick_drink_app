@@ -27,19 +27,19 @@ void main() {
   group("getExamplePositions", () {
     test("should call exampleRetrofitDataSource.getExamplePositions() once",
         () async {
-      //1
+   
       when(
         () => dataSource.getExamplePositions(),
       ).thenAnswer((_) async => []);
-      //2
+    
       await sut.getExamplePositions(type: "drink");
-      //3
+   
       verify(
         () => dataSource.getExamplePositions(),
       ).called(1);
     });
     test("should filter data results by type", () async {
-      //1
+ 
       when(() => dataSource.getExamplePositions()).thenAnswer((_) async => [
             MenuPositionModel(
                 name: "name1",
@@ -66,9 +66,9 @@ void main() {
                 ingredients: "ingredients",
                 type: "dish")
           ]);
-      //2
+  
       final results = await sut.getExamplePositions(type: "drink");
-      //3
+ 
       expect(results, [
         MenuPositionModel(
             name: "name1",

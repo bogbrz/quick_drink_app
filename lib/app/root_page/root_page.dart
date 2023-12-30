@@ -1,12 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/app/injection_container.dart';
 import 'package:quick_drink_app/app/root_page/cubit/root_page_cubit.dart';
 
-import 'package:quick_drink_app/features/pages/bar_kitchen_table_pages/navigator_page_1.dart';
+import 'package:quick_drink_app/features/pages/bar_kitchen_table_pages/tabs_navigator_page.dart';
 import 'package:quick_drink_app/features/pages/login_user_pages/log_in/log_in_page.dart';
-
 
 class RootPage extends StatelessWidget {
   const RootPage({
@@ -22,7 +20,7 @@ class RootPage extends StatelessWidget {
           if (state.user == null) {
             return const LogInPage();
           }
-          return const NavigatorPage1();
+          return const TabNavigatorPage();
         }));
   }
 }

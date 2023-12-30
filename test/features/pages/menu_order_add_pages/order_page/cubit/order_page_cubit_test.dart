@@ -221,15 +221,15 @@ void main() {
 
   group("addOrder", () {
     test("should call orderRepository.addOrder() once", () async {
-      //1
+   
       when(
         () => repository.addOrder(
             tableNumber: 1, name: "name", quantity: 1, price: 1, type: "type"),
       ).thenAnswer((_) async => []);
-      //2
+   
       await sut.addOrder(
           type: "type", tableNumber: 1, name: "name", quantity: 1, price: 1);
-      //3
+     
 
       verify(
         () => repository.addOrder(
@@ -239,19 +239,19 @@ void main() {
   });
   group("addOrderToDo", () {
     test("should call orderRepository.addOrderToDo() once", () async {
-      //1
+     
       when(
         () => repository.addOrderToDo(
             tableNumber: 1, name: "name", quantity: 1, type: "type"),
       ).thenAnswer((_) async => []);
-      //2
+  
       await sut.addOrderToDo(
         type: "type",
         tableNumber: 1,
         name: "name",
         quantity: 1,
       );
-      //3
+  
 
       verify(
         () => repository.addOrderToDo(
@@ -261,13 +261,13 @@ void main() {
   });
   group("removePreOrder", () {
     test("should call orderRepository.removePreOrder() once", () async {
-      //1
+ 
       when(
         () => repository.removePreOrder(id: "1"),
       ).thenAnswer((_) async => []);
-      //2
+   
       await sut.removePreOrder(id: "1");
-      //3
+   
 
       verify(
         () => repository.removePreOrder(id: "1"),
@@ -276,13 +276,13 @@ void main() {
   });
   group("removeOrder", () {
      test("should call orderRepository.removeOrder() once", () async {
-      //1
+ 
       when(
         () => repository.removeOrder(id: "1"),
       ).thenAnswer((_) async => []);
-      //2
+  
       await sut.removeOrder(id: "1");
-      //3
+     
 
       verify(
         () => repository.removeOrder(id: "1"),

@@ -83,7 +83,7 @@ class _LogInPageState extends State<LogInPage> {
                             .createUserWithEmailAndPassword(
                                 email: emailController.text,
                                 password: passwordController.text);
-                        //REGISTRATION
+                     
                       } else {
                         context
                             .read<LogInPageCubit>()
@@ -91,7 +91,7 @@ class _LogInPageState extends State<LogInPage> {
                                 email: emailController.text,
                                 password: passwordController.text);
 
-                        //loging
+                       
                       }
                     },
                     child: Container(

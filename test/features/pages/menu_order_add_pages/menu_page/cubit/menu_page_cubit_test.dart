@@ -175,17 +175,17 @@ void main() {
 
   group("addDishToPreOrders", () {
     test("should call menuRepository.addPositionToPreOrder once", () async {
-      //1
+
       when(
         () => repository.addPositionToPreOrder(
             tableNumber: 1, name: "name", quantity: 1, price: 1, type: "type"),
       ).thenAnswer((_) async => []);
 
-      //2
+   
       await sut.addDishToPreOrders(
           tableNumber: 1, name: "name", quantity: 1, price: 1, type: "type");
 
-      //3
+   
       verify(
         () => repository.addPositionToPreOrder(
             tableNumber: 1, name: "name", quantity: 1, price: 1, type: "type"),

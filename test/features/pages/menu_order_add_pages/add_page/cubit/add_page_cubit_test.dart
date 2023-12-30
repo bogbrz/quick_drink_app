@@ -20,15 +20,15 @@ void main() {
 
   group("addPositon", () {
     test("should call menuRepository.addPositon() once", () async {
-      //1
+
       when(
         () => repository.addPosition(
             name: "name", price: 1, ingredients: "ingredients", type: "type"),
       ).thenAnswer((_) async => []);
-      //2
+    
       await sut.addPosition(
           name: "name", price: 1, ingredients: "ingredients", type: "type");
-      //3
+
       verify(
         () => repository.addPosition(
             name: "name", price: 1, ingredients: "ingredients", type: "type"),
@@ -117,15 +117,15 @@ void main() {
 
    group("removePosition", () {
     test("should call menuRepository.removePostion() once", () async {
-      //1
+
       when(
         () => repository.removePosition(
             id: "name", ),
       ).thenAnswer((_) async => []);
-      //2
+
       await sut.removePosition(
          id: "name",);
-      //3
+   
       verify(
         () => repository.removePosition(
            id: "name",),

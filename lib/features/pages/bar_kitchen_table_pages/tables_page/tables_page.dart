@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/app/injection_container.dart';
 
-import 'package:quick_drink_app/domain/models/table_model.dart';
 import 'package:quick_drink_app/features/pages/bar_kitchen_table_pages/tables_page/cubit/tables_page_cubit.dart';
 import 'package:quick_drink_app/features/pages/login_user_pages/user_page/user_page.dart';
 
-import 'package:quick_drink_app/features/pages/menu_order_add_pages/navigator_page.dart';
+import 'package:quick_drink_app/features/pages/widgets/table_widget.dart';
 
 class TablePage extends StatefulWidget {
   const TablePage({
@@ -164,50 +163,3 @@ class _TablePageState extends State<TablePage> {
   }
 }
 
-class TableWidget extends StatelessWidget {
-  const TableWidget({
-    super.key,
-    required this.table,
-  });
-
-  final TableModel table;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      shape: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(100),
-      ),
-      clipBehavior: Clip.hardEdge,
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) =>
-                  NavigatorPage(tableNumber: table.tableNumber),
-            ),
-          );
-        },
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 221, 128, 23),
-              border: Border.all(
-                width: 2,
-                color: Colors.black,
-              ),
-              borderRadius: BorderRadius.circular(100)),
-          width: MediaQuery.of(context).size.width / 2,
-          height: MediaQuery.of(context).size.height / 4,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("${table.tableNumber}",
-                  style: Theme.of(context).textTheme.displayMedium),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

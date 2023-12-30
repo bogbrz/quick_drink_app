@@ -22,12 +22,13 @@ class UserPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("you are logged as ${emailController.text} ",
+                  textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium),
               BlocBuilder<RootPageCubit, RootPageState>(
                 builder: (context, state) {
                   return ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange, // Background color
+                        backgroundColor: Colors.orange,
                       ),
                       onPressed: () {
                         context.read<RootPageCubit>().signOut();

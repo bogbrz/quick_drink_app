@@ -3,18 +3,19 @@ import 'package:quick_drink_app/features/pages/bar_kitchen_table_pages/bar_page/
 import 'package:quick_drink_app/features/pages/bar_kitchen_table_pages/kitchen_page/kitchen_page.dart';
 import 'package:quick_drink_app/features/pages/bar_kitchen_table_pages/tables_page/tables_page.dart';
 
-class NavigatorPage1 extends StatefulWidget {
-  const NavigatorPage1({
+class TabNavigatorPage extends StatefulWidget {
+  const TabNavigatorPage({
     super.key,
   });
 
   @override
-  State<NavigatorPage1> createState() => _NavigatorPage1State();
+  State<TabNavigatorPage> createState() => _TabNavigatorPageState();
 }
 
-var pageIndex = 0;
 
-class _NavigatorPage1State extends State<NavigatorPage1> {
+
+class _TabNavigatorPageState extends State<TabNavigatorPage> {
+  var pageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -74,13 +74,13 @@ void main() {
 
   group("removeTable", () {
     test("should call tableRepository.removeTable() once", () async {
-      //1
+   
       when(
         () => repository.removeTable(docId: "docId"),
       ).thenAnswer((_) async => []);
-      //2
+  
       await sut.removeTable(docId: "docId");
-      //3
+   
       verify(
         () => repository.removeTable(docId: "docId"),
       ).called(1);
@@ -90,13 +90,13 @@ void main() {
 
   group("addTable", () {
     test("should call tableRepository.addTable() once", () async {
-      //1
+  
       when(
         () => repository.addTables(tableNumber: 1),
       ).thenAnswer((_) async => []);
-      //2
+  
       await sut.addTable(tableNumber: 1);
-      //3
+  
       verify(
         () => repository.addTables(tableNumber: 1),
       ).called(1);

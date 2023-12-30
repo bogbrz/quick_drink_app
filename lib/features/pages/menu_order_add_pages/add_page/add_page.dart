@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_drink_app/app/injection_container.dart';
-import 'package:quick_drink_app/domain/models/menu_position_model.dart';
+
 import 'package:quick_drink_app/features/pages/menu_order_add_pages/add_page/cubit/add_page_cubit.dart';
-
-
+import 'package:quick_drink_app/features/pages/widgets/menu_postition_widget.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({
@@ -180,7 +179,7 @@ class _AddPageState extends State<AddPage> {
                             .read<AddPageCubit>()
                             .removePosition(id: position.id);
                       },
-                      child: ItemWidget(order: position),
+                      child: MenuPositionWidget(order: position),
                     ),
                   ]
                 ],
@@ -193,51 +192,3 @@ class _AddPageState extends State<AddPage> {
   }
 }
 
-class ItemWidget extends StatelessWidget {
-  const ItemWidget({
-    super.key,
-    required this.order,
-  });
-  final MenuPositionModel order;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.6,
-      decoration: BoxDecoration(
-          color: order.type == "dish" ? Colors.yellow : Colors.blue,
-          border: Border.all()),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      const Text(
-                        "Name",
-                      ),
-                      Text(order.name),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Text(
-                        "Price",
-                      ),
-                      Text(order.price.toString()),
-                    ],
-                  ),
-                ]),
-          ),
-          Text(
-            "Ingredients: ${order.ingredients}",
-          ),
-        ]),
-      ),
-    );
-  }
-}
